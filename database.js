@@ -16,7 +16,11 @@ async function addNewLocation(_storageName, _storageType, _locationInLab) {
     await _supabase
         .from('locations')
         .insert([
-            { storageName: _storageName, storageType: _storageType, locationInLab: _locationInLab}
+            { 
+                storageName: _storageName, 
+                storageType: _storageType, 
+                locationInLab: _locationInLab
+            }
         ])
 }
 
@@ -32,14 +36,13 @@ async function addItemFormUpdateDropLists() {
     var { data, error } = await _supabase
         .from('locations')
         .select();
-    const locationList = document.getElementById("add_item_form_location"),
-          itemTypeList = document.getElementById("add_item_form_type");
+    const locationList = document.querySelector("#add_item_form_location"),
+          itemTypeList = document.querySelector("#add_item_form_type");
 
-    for (var i = 0; i < data.length; i++){
-        let option = document.createElement("option"),
-            optionText = document.createTextNode(data[i].locationInLab);
-        option.value = data[i].id;
-        option.appendChild(optionText);
+    for (const item of data){
+        let option = document.createElement("option");
+        option.value = item.id;
+        option.innerHTML = item.locationInLab;
         locationList.appendChild(option);
     }
 
@@ -47,15 +50,23 @@ async function addItemFormUpdateDropLists() {
         .from('itemTypes')
         .select();
 
-    for (var i = 0; i < data.length; i++){
-        let option = document.createElement("option"),
-            optionText = document.createTextNode(data[i].name);
-        option.value = data[i].id;
-        option.appendChild(optionText);
+    for (const item of data){
+        let option = document.createElement("option");
+        option.value = item.id;
+        option.innerHTML = item.name;
         itemTypeList.appendChild(option);
     }
 
-    document.getElementById('add_item_form').style.display = 'block';
+    document.querySelector('#add_item_form').style.display = 'block';
+}
+
+async function getObjectFromId(table, id) {
+    const {data, error} = await _supabase
+        .from(table)
+        .select()
+        .eq('id', id);
+
+    return data;
 }
 
 // Gets items from database and puts them into table
@@ -72,8 +83,8 @@ async function updateTableFromServer() {
     }
     
     // Get table element and length of children for removing elements
-    let table = document.querySelector("#inventory_list")
-    let tableIndex = table.children.length
+    let table = document.querySelector("#inventory_list"),
+        tableIndex = table.children.length;
 
     // Remove all elements from table, we do it like this instead of a "for of" loop because
     // removing elements from an array while looping through that array causes it to only remove
@@ -95,17 +106,28 @@ async function updateTableFromServer() {
         table.appendChild(tableRow)
         
         // create the table data elements
-        let nameEntry = document.createElement("td")
-        let quantityEntry = document.createElement("td")
-        let statusEntry = document.createElement("td") // Im not sure what to put in this, so for now im leaving it empty
-        
-        // append table data to table row
-        tableRow.appendChild(nameEntry)
-        tableRow.appendChild(quantityEntry)
-        tableRow.appendChild(statusEntry)
+        let name = document.createElement("td"),
+            quantity = document.createElement("td"),
+            location = document.createElement("td"),
+            type = document.createElement('td');
+
+        let _location = getObjectFromId('locations', item.location).then(function(data) {
+            location.innerHTML = data[0].locationInLab;
+        });
+
+        let _type = getObjectFromId('itemTypes', item.itemType).then(function(data) {
+            type.innerHTML = data[0].name;
+        })
 
         // add server data to table data elements
-        nameEntry.innerHTML = item.name
-        quantityEntry.innerHTML = item.totalQuantity
+        name.innerHTML = item.name;
+        quantity.innerHTML = item.totalQuantity;
+
+        // append table data to table row
+        tableRow.appendChild(name);
+        tableRow.appendChild(quantity);
+        tableRow.appendChild(location);
+        tableRow.appendChild(type);
+        
     }
 }
