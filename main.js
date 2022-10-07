@@ -9,7 +9,7 @@ var items = [];
 
 function addItemFormEvent(event) { event.preventDefault(); }
 document.getElementById('add_item_form').addEventListener("submit", addItemFormEvent);
-function addItemFormOnSubmit(){
+function addItemFormOnSubmit() {
     const form = document.forms.add_item_form.elements;
     addNewItemToDatabase(
         form.add_item_form_name.value,
@@ -18,4 +18,10 @@ function addItemFormOnSubmit(){
         form.add_item_form_location.value,
         form.add_item_form_type.value
     )
+    
+    // Update table after adding new element
+    updateTableFromServer()
 }
+
+// Fetch server data on page load
+updateTableFromServer()
