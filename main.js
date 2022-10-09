@@ -4,23 +4,33 @@ const { createClient } = supabase,
 var currentFilterType = FilterType.none;
 var items = [];
 
-//addNewLocation("red box", "box", "corner");
-//addNewItemType("PCB");
-
+// Prevent form from submitting when the Enter key is pressed
 function addItemFormEvent(event) { event.preventDefault(); }
 document.querySelector('#add_item_form').addEventListener("submit", addItemFormEvent);
+
+// TODO: set the file limit for images to 2MB only? Larger images brings supabase web client down to its knees
+// - anhatthezoo 
+
 function addItemFormOnSubmit() {
     const form = document.forms.add_item_form.elements;
-    addNewItemToDatabase(
-        form.add_item_form_name.value,
-        form.add_item_form_image.value,
-        parseInt(form.add_item_form_quantity.value),
-        form.add_item_form_location.value,
-        form.add_item_form_type.value
-    )
+    let file = document.querySelector("#add_item_form_image").files[0],
+        reader = new FileReader();
+
+    if (file) { reader.readAsDataURL(file); }
+    // Add item to database after FileReader has finished     
+    reader.addEventListener("load", async () => {
+        await addNewItemToDatabase(
+            form.add_item_form_name.value,
+            reader.result,                                      // Image encoded as a base64 string
+            parseInt(form.add_item_form_quantity.value),
+            form.add_item_form_location.value,
+            form.add_item_form_type.value
+        );
+
+        // Update table after adding new element
+        updateTableFromServer()
+    });
     
-    // Update table after adding new element
-    updateTableFromServer()
 }
 
 // Fetch server data on page load

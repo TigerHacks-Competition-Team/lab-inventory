@@ -4,7 +4,6 @@ const FilterType = {
     none: 'None'
 }
 
-
 function filterInventoryTable() {
     let table = document.querySelector("#inventory_list"),
         tableIndex = table.children.length;
