@@ -46,7 +46,7 @@ button, input, select {
     border: none;
 }
 
-button:hover {
+button:hover, input:hover, select:hover {
     background: var(--tertiary);
 }
 
