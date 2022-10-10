@@ -7,6 +7,18 @@
   </head>
   <body>
     <div id="root">
+      <div id="context_menu" class="ctx_menu_hide">
+        <ul>
+          <li> <button class="ctx_menu_button" onclick="viewItemProfile()"> View </button> </li>
+          <li> <button class="ctx_menu_button"> Checkout </button> </li>
+          <li> <button class="ctx_menu_button"> Remove </button> </li>
+        </ul>
+      </div>
+      <div id="item_profile_rect" style="display: none;">
+          <div id="item_profile">
+
+          </div>
+      </div>
       <div id="inventory_list_rect">
         <h2> Inventory </h2>
         <div id="filter_list_rect">

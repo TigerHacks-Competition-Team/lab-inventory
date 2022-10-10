@@ -9,3 +9,32 @@ td, th {
     text-align: left;
     padding: 8px;
 }
+
+.ctx_menu_hide { display: none; }
+
+.ctx_menu_show {
+    z-index: 999;
+    position: absolute;
+    display: block;
+}
+
+#item_profile {
+    position: absolute;
+    z-index: 950;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background-color: antiquewhite;
+    width: 600px;
+    height: 500px;
+    padding: 16px;
+}
+
+#item_profile_rect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 500px;
+    width: 700px;
+}
