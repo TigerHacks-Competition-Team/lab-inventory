@@ -23,6 +23,20 @@ td, th {
     padding: 10px;
 }
 
+h1 {
+    margin: 10px 0;
+    font-size: 24pt;
+}
+
+h2 {
+    margin: 10px 0;
+    font-size: 18pt;
+}
+
+p {
+    font-size: 14pt;
+}
+
 button, input, select {
     background: var(--secondary);
     color: var(--text-color);
@@ -45,7 +59,7 @@ aside {
 }
 
 .inventory_master_rect {
-    border: 1px solid var(--secondary);
+    /* border: 1px solid var(--secondary); */
     margin-bottom: 20px;
 }
 
@@ -62,4 +76,17 @@ aside {
 #sidebar {
     border-left: 1px solid var(--secondary);
     padding: 20px;
+}
+
+.sidebar_panel {
+    padding: 10px 0;
+}
+
+.sidebar_panel_title {
+    margin: 20px 0;
+}
+
+.sidebar_panel_text {
+    margin-left: 20px;
+    color: var(--tertiary);
 }

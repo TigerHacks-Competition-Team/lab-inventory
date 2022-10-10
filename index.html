@@ -11,9 +11,9 @@
       <div id="inventory_container_rect">
         <div id="inventory_list_rect">
           <div class="inventory_master_rect">
-            <h2> Inventory </h2>
+            <h1> Inventory </h1>
             <div id="filter_list_rect">
-              <h2> Filter by: </h2>
+              <h1> Filter by: </h1>
               <button onclick="currentFilterType = FilterType.itemType; filterInventoryTable();"> Type </button>
               <button onclick="currentFilterType = FilterType.location; filterInventoryTable();"> Location </button>
               <p id="filter_by_text"> Filter type </p>
@@ -48,9 +48,15 @@
         </div>
       </div>
       <aside id="sidebar">
-        <h1> Overview </h1>
-        <h2> Total Units </h2>
-        <p> Some calculated value </p>
+        <h1 class="sidebar_panel_title"> Overview </h1>
+        <div class="sidebar_panel">
+          <h2> Total Units </h2>
+          <p class="sidebar_panel_text"> Placeholder </p>
+        </div>
+        <div class="sidebar_panel">
+          <h2> Last Updated </h2>
+          <p class="sidebar_panel_text"> Placeholder </p>
+        </div>
       </aside>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
