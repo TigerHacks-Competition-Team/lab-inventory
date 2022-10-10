@@ -3,20 +3,23 @@
   <head>
     <title> Lab Inventory </title>
     <meta charset="utf-8"/>
+    <link rel="stylesheet" href="dark_theme.css">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <div id="root">
       <div id="inventory_list_rect">
-        <h2> Inventory </h2>
-        <div id="filter_list_rect">
-          <h2> Filter by: </h2>
-          <button onclick="currentFilterType = FilterType.itemType; filterInventoryTable();"> Type </button>
-          <button onclick="currentFilterType = FilterType.location; filterInventoryTable();"> Location </button>
-          <p id="filter_by_text"> Filter type </p>
+        <div class="inventory_master_rect">
+          <h2> Inventory </h2>
+          <div id="filter_list_rect">
+            <h2> Filter by: </h2>
+            <button onclick="currentFilterType = FilterType.itemType; filterInventoryTable();"> Type </button>
+            <button onclick="currentFilterType = FilterType.location; filterInventoryTable();"> Location </button>
+            <p id="filter_by_text"> Filter type </p>
+          </div>
         </div>
         <div id="add_item_rect">
-            <button onclick="addItemFormUpdateDropLists()"> + </button>
+            <button onclick="addItemFormUpdateDropLists()"> Add Entry </button>
             <form id="add_item_form" style="display: none" onsubmit="addItemFormOnSubmit()">
               <label for="add_item_form_name"> Item name: </label>
               <input id="add_item_form_name" name="add_item_form_name" type="text" autocomplete="off"><br>
