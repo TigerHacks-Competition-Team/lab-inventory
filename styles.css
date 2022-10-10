@@ -23,7 +23,7 @@ td, th {
     padding: 10px;
 }
 
-button {
+button, input, select {
     background: var(--secondary);
     color: var(--text-color);
     padding: 5px 10px;
@@ -36,12 +36,30 @@ button:hover {
     background: var(--tertiary);
 }
 
-#root {
-    margin: 5vh auto;
-    width: 90%;
+aside {
+    position: sticky;
+    top: 0;
+    left: 100%;
+    height: 100vh;
+    width: 20%;
 }
 
 .inventory_master_rect {
     border: 1px solid var(--secondary);
     margin-bottom: 20px;
+}
+
+.split_vertical {
+    display: flex;
+    flex-direction: row;
+}
+
+#inventory_container_rect {
+    margin: 5vh auto;
+    width: 70%;
+}
+
+#sidebar {
+    border-left: 1px solid var(--secondary);
+    padding: 20px;
 }

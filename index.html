@@ -7,45 +7,51 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div id="root">
-      <div id="inventory_list_rect">
-        <div class="inventory_master_rect">
-          <h2> Inventory </h2>
-          <div id="filter_list_rect">
-            <h2> Filter by: </h2>
-            <button onclick="currentFilterType = FilterType.itemType; filterInventoryTable();"> Type </button>
-            <button onclick="currentFilterType = FilterType.location; filterInventoryTable();"> Location </button>
-            <p id="filter_by_text"> Filter type </p>
+    <div id="root" class="split_vertical">
+      <div id="inventory_container_rect">
+        <div id="inventory_list_rect">
+          <div class="inventory_master_rect">
+            <h2> Inventory </h2>
+            <div id="filter_list_rect">
+              <h2> Filter by: </h2>
+              <button onclick="currentFilterType = FilterType.itemType; filterInventoryTable();"> Type </button>
+              <button onclick="currentFilterType = FilterType.location; filterInventoryTable();"> Location </button>
+              <p id="filter_by_text"> Filter type </p>
+            </div>
           </div>
-        </div>
-        <div id="add_item_rect">
-            <button onclick="addItemFormUpdateDropLists()"> Add Entry </button>
-            <form id="add_item_form" style="display: none" onsubmit="addItemFormOnSubmit()">
-              <label for="add_item_form_name"> Item name: </label>
-              <input id="add_item_form_name" name="add_item_form_name" type="text" autocomplete="off"><br>
-              <label for="add_item_form_image"> Image: </label>
-              <input id="add_item_form_image" name="add_item_form_image" type="file" autocomplete="off"><br>
-              <label for="add_item_form_quantity"> Quantity: </label>
-              <input id="add_item_form_quantity" name="add_item_form_quantity" type="text" autocomplete="off"><br>
-              <label for="add_item_form_location"> Location: </label>
-              <select id="add_item_form_location" name="add_item_form_location" autocomplete="off"></select><br>
-              <label for="add_item_form_type"> Type: </label>
-              <select id="add_item_form_type" name="add_item_form_type" autocomplete="off"></select><br>
+          <div id="add_item_rect">
+              <button onclick="addItemFormUpdateDropLists()"> Add Entry </button>
+              <form id="add_item_form" style="display: none" onsubmit="addItemFormOnSubmit()">
+                <label for="add_item_form_name"> Item name: </label>
+                <input id="add_item_form_name" name="add_item_form_name" type="text" autocomplete="off"><br>
+                <label for="add_item_form_image"> Image: </label>
+                <input id="add_item_form_image" name="add_item_form_image" type="file" autocomplete="off"><br>
+                <label for="add_item_form_quantity"> Quantity: </label>
+                <input id="add_item_form_quantity" name="add_item_form_quantity" type="text" autocomplete="off"><br>
+                <label for="add_item_form_location"> Location: </label>
+                <select id="add_item_form_location" name="add_item_form_location" autocomplete="off"></select><br>
+                <label for="add_item_form_type"> Type: </label>
+                <select id="add_item_form_type" name="add_item_form_type" autocomplete="off"></select><br>
 
-              <input id="add_item_form_submit" type="submit" value="Add Item">
-              <input id="add_item_form_cancel" type="button" value="Cancel">
-            </form>
+                <input id="add_item_form_submit" type="submit" value="Add Item">
+                <input id="add_item_form_cancel" type="button" value="Cancel">
+              </form>
+          </div>
+          <table id="inventory_list" style="overflow-y: scroll;">
+            <tr>
+              <th> Item Name </th>
+              <th> Quantity </th>
+              <th> Location </th>
+              <th> Type </th>
+            </tr>
+          </table>
         </div>
-        
-        <table id="inventory_list" style="overflow-y: scroll;">
-          <tr>
-            <th> Item Name </th>
-            <th> Quantity </th>
-            <th> Location </th>
-            <th> Type </th>
-          </tr>
-        </table>
       </div>
+      <aside id="sidebar">
+        <h1> Overview </h1>
+        <h2> Total Units </h2>
+        <p> Some calculated value </p>
+      </aside>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="database.js" defer></script>
