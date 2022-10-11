@@ -57,7 +57,7 @@ async function addItemFormUpdateDropLists() {
         itemTypeList.appendChild(option);
     }
 
-    document.querySelector('#add_item_form').style.display = 'block';
+    document.querySelector('#add_item_rect').style.display = 'block';
 }
 
 async function getObjectFromId(table, id) {

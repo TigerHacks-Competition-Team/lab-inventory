@@ -46,7 +46,18 @@ function addItemFormOnSubmit() {
     let file = document.querySelector("#add_item_form_image").files[0],
         reader = new FileReader();
 
-    if (file) { reader.readAsDataURL(file); }
+    if (file) { reader.readAsDataURL(file); } else {
+        addNewItemToDatabase(
+            form.add_item_form_name.value,
+            undefined,
+            parseInt(form.add_item_form_quantity.value),
+            form.add_item_form_location.value,
+            form.add_item_form_type.value
+        ).then(() => {
+            updateTableFromServer()
+            document.querySelector("#add_item_rect").style.display = "none"
+        })
+    }
     // Add item to database after FileReader has finished     
     reader.addEventListener("load", async () => {
         await addNewItemToDatabase(
@@ -59,9 +70,11 @@ function addItemFormOnSubmit() {
 
         // Update table after adding new element
         updateTableFromServer()
+        document.querySelector("#add_item_rect").style.display = "none"
     });
     
 }
 
-
-
+function cancelForm() {
+    document.querySelector('#add_item_rect').style.display = 'none';
+}

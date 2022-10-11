@@ -10,6 +10,13 @@ td, th {
     padding: 8px;
 }
 
+body {
+    font-family: monospace;
+    color: rgb(240, 229, 188);
+    background-color: rgb(36, 33, 35);
+    border-color: rgb(240, 229, 188);
+}
+
 .ctx_menu_hide { display: none; }
 
 .ctx_menu_show {
@@ -37,4 +44,18 @@ td, th {
     transform: translate(-50%, -50%);
     height: 500px;
     width: 700px;
+}
+
+#add_item_rect {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(55, 49, 53, 0.99);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#add_item_rect * {
+    margin: 10px;
 }

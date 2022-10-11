@@ -27,9 +27,9 @@
           <button onclick="currentFilterType = FilterType.location; filterInventoryTable();"> Location </button>
           <p id="filter_by_text"> Filter type </p>
         </div>
-        <div id="add_item_rect">
-            <button onclick="addItemFormUpdateDropLists()"> + </button>
-            <form id="add_item_form" style="display: none" onsubmit="addItemFormOnSubmit()">
+        <button onclick="addItemFormUpdateDropLists()"> + </button>
+        <div id="add_item_rect" style="display: none;">
+            <form id="add_item_form" onsubmit="addItemFormOnSubmit()">
               <label for="add_item_form_name"> Item name: </label>
               <input id="add_item_form_name" name="add_item_form_name" type="text" autocomplete="off"><br>
               <label for="add_item_form_image"> Image: </label>
@@ -42,7 +42,7 @@
               <select id="add_item_form_type" name="add_item_form_type" autocomplete="off"></select><br>
 
               <input id="add_item_form_submit" type="submit" value="Add Item">
-              <input id="add_item_form_cancel" type="button" value="Cancel">
+              <input id="add_item_form_cancel" type="button" value="Cancel" onclick="cancelForm()">
             </form>
         </div>
         
