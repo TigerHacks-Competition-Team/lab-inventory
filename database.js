@@ -57,7 +57,7 @@ async function addItemFormUpdateDropLists() {
         itemTypeList.appendChild(option);
     }
 
-    document.querySelector('#add_item_rect').style.display = 'block';
+    document.querySelector('#add_item_form').style.display = 'block';
 }
 
 async function getObjectFromId(table, id) {
@@ -102,10 +102,8 @@ async function updateTableFromServer() {
     // If no errors are present, loop through each item
     for (const item of data) {
         // create table row and append it to the main table
-        let tableRow = document.createElement("tr");
-        tableRow.className = "inventory_list_row";
-        tableRow.dataset.id = item.id;
-        table.appendChild(tableRow);
+        let tableRow = document.createElement("tr")
+        table.appendChild(tableRow)
         
         // create the table data elements
         let name = document.createElement("td"),

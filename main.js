@@ -5,38 +5,8 @@ var currentFilterType = FilterType.none;
 var items = [];
 
 // Prevent form from submitting when the Enter key is pressed
-document.querySelector('#add_item_form').addEventListener("submit", (event) => {
-    event.preventDefault();
-});
-
-window.onload = async () => {
-    // Fetch server data on page load
-    await updateTableFromServer()
-
-    // Context menu logic
-    document.querySelectorAll(".inventory_list_row").forEach(row => {
-        row.addEventListener("contextmenu", (event) => {
-            event.preventDefault();
-            let contextMenu = document.querySelector("#context_menu");
-            contextMenu.className = "ctx_menu_show";
-            contextMenu.style.left = (event.pageX - 20) + "px";
-            contextMenu.style.top = (event.pageY - 20) + "px";
-        }, false)
-    });
-
-    document.body.addEventListener("click", (event) => {
-        let contextMenu = document.querySelector("#context_menu");
-        if (contextMenu.className == "ctx_menu_hide") { return; }
-
-        contextMenu.className = "ctx_menu_hide";
-    }, false)
-
-    document.querySelectorAll(".ctx_menu_button").forEach(button => {
-        button.addEventListener("contextmenu", (event) => {
-            event.preventDefault();
-        })
-    })
-}
+function addItemFormEvent(event) { event.preventDefault(); }
+document.querySelector('#add_item_form').addEventListener("submit", addItemFormEvent);
 
 // TODO: set the file limit for images to 2MB only? Larger images brings supabase web client down to its knees
 // - anhatthezoo 
@@ -46,18 +16,7 @@ function addItemFormOnSubmit() {
     let file = document.querySelector("#add_item_form_image").files[0],
         reader = new FileReader();
 
-    if (file) { reader.readAsDataURL(file); } else {
-        addNewItemToDatabase(
-            form.add_item_form_name.value,
-            undefined,
-            parseInt(form.add_item_form_quantity.value),
-            form.add_item_form_location.value,
-            form.add_item_form_type.value
-        ).then(() => {
-            updateTableFromServer()
-            document.querySelector("#add_item_rect").style.display = "none"
-        })
-    }
+    if (file) { reader.readAsDataURL(file); }
     // Add item to database after FileReader has finished     
     reader.addEventListener("load", async () => {
         await addNewItemToDatabase(
@@ -70,11 +29,9 @@ function addItemFormOnSubmit() {
 
         // Update table after adding new element
         updateTableFromServer()
-        document.querySelector("#add_item_rect").style.display = "none"
     });
     
 }
 
-function cancelForm() {
-    document.querySelector('#add_item_rect').style.display = 'none';
-}
+// Fetch server data on page load
+updateTableFromServer()
