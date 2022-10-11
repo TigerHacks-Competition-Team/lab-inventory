@@ -19,3 +19,6 @@ function filterInventoryTable() {
     }
 }
 
+function viewItemProfile() {
+    document.querySelector("#item_profile_rect").style.display = "block";
+}
