@@ -33,5 +33,6 @@ function addItemFormOnSubmit() {
     
 }
 
-// Fetch server data on page load
-updateTableFromServer()
+function cancelForm() {
+    document.querySelector('#add_item_rect').style.display = 'none';
+}
