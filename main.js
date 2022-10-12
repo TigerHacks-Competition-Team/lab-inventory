@@ -76,5 +76,11 @@ function addItemFormOnSubmit() {
 }
 
 function cancelForm() {
-    document.querySelector('#add_item_rect').style.display = 'none';
+    let root = document.getElementById('root');
+    let form =  document.querySelector('#add_item_rect');
+    root.classList.remove('remove_focus');
+    root.classList.add('add_focus');
+
+    form.classList.remove('add_focus');
+    form.style.display = 'none';
 }
