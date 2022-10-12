@@ -57,14 +57,7 @@ async function addItemFormUpdateDropLists() {
         itemTypeList.appendChild(option);
     }
 
-    let root = document.getElementById('root');
-    root.classList.remove('add_focus');
-    root.classList.add('remove_focus');
-
-    let form = document.querySelector('#add_item_rect');
-    form.classList.remove('add_focus');
-    form.classList.add('add_focus');
-    form.style.display = 'block';
+    handleFocus(1);
 }
 
 async function getObjectFromId(table, id) {

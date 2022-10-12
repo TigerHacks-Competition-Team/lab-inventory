@@ -55,6 +55,7 @@ function addItemFormOnSubmit() {
             form.add_item_form_type.value
         ).then(() => {
             updateTableFromServer()
+            handleFocus(0);
             document.querySelector("#add_item_rect").style.display = "none"
         })
     }
@@ -75,12 +76,27 @@ function addItemFormOnSubmit() {
     
 }
 
-function cancelForm() {
+function handleFocus(inFocusMode) {
     let root = document.getElementById('root');
-    let form =  document.querySelector('#add_item_rect');
+    let form = document.querySelector('#add_item_rect');
+    
+    if(inFocusMode) {
+        root.classList.remove('add_focus');
+        root.classList.add('remove_focus');
+    
+        form.classList.remove('add_focus');
+        form.classList.add('add_focus');
+        form.style.display = 'block';
+        return;
+    }
+
     root.classList.remove('remove_focus');
     root.classList.add('add_focus');
 
     form.classList.remove('add_focus');
     form.style.display = 'none';
+}
+
+function cancelForm() {
+   handleFocus(0);
 }
