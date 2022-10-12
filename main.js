@@ -45,7 +45,7 @@ function addItemFormOnSubmit() {
     const form = document.forms.add_item_form.elements;
     let file = document.querySelector("#add_item_form_image").files[0],
         reader = new FileReader();
-
+    handleFocus(0);
     if (file) { reader.readAsDataURL(file); } else {
         addNewItemToDatabase(
             form.add_item_form_name.value,
@@ -55,7 +55,6 @@ function addItemFormOnSubmit() {
             form.add_item_form_type.value
         ).then(() => {
             updateTableFromServer()
-            handleFocus(0);
             document.querySelector("#add_item_rect").style.display = "none"
         })
     }
