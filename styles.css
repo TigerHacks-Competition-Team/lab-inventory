@@ -54,8 +54,27 @@ body {
     background-color: rgba(55, 49, 53, 0.99);
     padding: 20px;
     border-radius: 5px;
+    z-index: 1;
 }
 
 #add_item_rect * {
     margin: 10px;
+}
+
+.remove_focus {
+    animation: rm_focus .2s ease-in forwards;
+}
+
+.add_focus {
+    animation: add_focus .2s ease-in forwards;
+}
+
+@keyframes add_focus {
+    0% { opacity: .1; }
+    100% { opacity: 1; }
+}
+
+@keyframes rm_focus {
+    0% { opacity: 1; }
+    100% { opacity: .1; }
 }
