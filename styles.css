@@ -35,6 +35,15 @@ aside {
     width: 20%;
 }
 
+h2 {
+    margin: 20px 0;
+}
+
+button, input {
+    padding: 1px 6px;
+    margin: 10px 0;
+}
+
 .ctx_menu_hide { display: none; }
 
 .ctx_menu_show {
@@ -64,6 +73,7 @@ aside {
     width: 700px;
 }
 
+
 #add_item_rect {
     position: fixed;
     top: 50%;
@@ -90,6 +100,10 @@ aside {
 
 .sidebar_panel_title {
     margin: 20px 0;
+}
+
+.sidebar_panel_subtitle {
+    margin: 0;
 }
 
 .sidebar_panel_text {
