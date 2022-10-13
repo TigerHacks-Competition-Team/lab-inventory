@@ -9,15 +9,15 @@
     <div id="add_item_rect" style="display: none;">
       <form id="add_item_form" onsubmit="addItemFormOnSubmit()">
         <label for="add_item_form_name"> Item name: </label>
-        <input id="add_item_form_name" name="add_item_form_name" type="text" autocomplete="off"><br>
+        <input id="add_item_form_name" name="add_item_form_name" type="text" autocomplete="off" required><br>
         <label for="add_item_form_image"> Image: </label>
-        <input id="add_item_form_image" name="add_item_form_image" type="file" autocomplete="off"><br>
+        <input id="add_item_form_image" name="add_item_form_image" type="file" autocomplete="off" required><br>
         <label for="add_item_form_quantity"> Quantity: </label>
-        <input id="add_item_form_quantity" name="add_item_form_quantity" type="text" autocomplete="off"><br>
+        <input id="add_item_form_quantity" name="add_item_form_quantity" type="text" autocomplete="off" required><br>
         <label for="add_item_form_location"> Location: </label>
-        <select id="add_item_form_location" name="add_item_form_location" autocomplete="off"></select><br>
+        <select id="add_item_form_location" name="add_item_form_location" autocomplete="off"required></select><br>
         <label for="add_item_form_type"> Type: </label>
-        <select id="add_item_form_type" name="add_item_form_type" autocomplete="off"></select><br>
+        <select id="add_item_form_type" name="add_item_form_type" autocomplete="off" required></select><br>
 
         <input id="add_item_form_submit" type="submit" value="Add Item">
         <input id="add_item_form_cancel" type="button" value="Cancel" onclick="cancelForm()">
