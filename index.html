@@ -6,54 +6,65 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div id="add_item_rect" style="display: none;">
-      <form id="add_item_form" onsubmit="addItemFormOnSubmit()">
-        <label for="add_item_form_name"> Item name: </label>
-        <input id="add_item_form_name" name="add_item_form_name" type="text" autocomplete="off" required><br>
-        <label for="add_item_form_image"> Image: </label>
-        <input id="add_item_form_image" name="add_item_form_image" type="file" autocomplete="off" required><br>
-        <label for="add_item_form_quantity"> Quantity: </label>
-        <input id="add_item_form_quantity" name="add_item_form_quantity" type="text" autocomplete="off" required><br>
-        <label for="add_item_form_location"> Location: </label>
-        <select id="add_item_form_location" name="add_item_form_location" autocomplete="off"required></select><br>
-        <label for="add_item_form_type"> Type: </label>
-        <select id="add_item_form_type" name="add_item_form_type" autocomplete="off" required></select><br>
-
-        <input id="add_item_form_submit" type="submit" value="Add Item">
-        <input id="add_item_form_cancel" type="button" value="Cancel" onclick="cancelForm()">
-      </form>
-  </div>
-    <div id="root">
-      <div id="context_menu" class="ctx_menu_hide">
-        <ul>
-          <li> <button class="ctx_menu_button" onclick="viewItemProfile()"> View </button> </li>
-          <li> <button class="ctx_menu_button"> Checkout </button> </li>
-          <li> <button class="ctx_menu_button"> Remove </button> </li>
-        </ul>
-      </div>
-      <div id="item_profile_rect" style="display: none;">
-          <div id="item_profile">
-
-          </div>
-      </div>
-      <div id="inventory_list_rect">
-        <h2> Inventory </h2>
-        <div id="filter_list_rect">
-          <h2> Filter by: </h2>
-          <button onclick="currentFilterType = FilterType.itemType; filterInventoryTable();"> Type </button>
-          <button onclick="currentFilterType = FilterType.location; filterInventoryTable();"> Location </button>
-          <p id="filter_by_text"> Filter type </p>
+    <div class="split_vertical">
+      <main>
+        <div id="context_menu" class="ctx_menu_hide">
+          <ul>
+            <li> <button class="ctx_menu_button" onclick="viewItemProfile()"> View </button> </li>
+            <li> <button class="ctx_menu_button"> Checkout </button> </li>
+            <li> <button class="ctx_menu_button"> Remove </button> </li>
+          </ul>
         </div>
-        <button onclick="addItemFormUpdateDropLists()"> + </button>
-        <table id="inventory_list" style="overflow-y: scroll;">
-          <tr>
-            <th> Item Name </th>
-            <th> Quantity </th>
-            <th> Location </th>
-            <th> Type </th>
-          </tr>
-        </table>
-      </div>
+        <div id="item_profile_rect" style="display: none;">
+            <div id="item_profile"></div>
+        </div>
+        <div id="add_item_rect" style="display: none;">
+          <form id="add_item_form" onsubmit="addItemFormOnSubmit()">
+            <label for="add_item_form_name"> Item name: </label>
+            <input id="add_item_form_name" name="add_item_form_name" type="text" autocomplete="off" required><br>
+            <label for="add_item_form_image"> Image: </label>
+            <input id="add_item_form_image" name="add_item_form_image" type="file" autocomplete="off" required><br>
+            <label for="add_item_form_quantity"> Quantity: </label>
+            <input id="add_item_form_quantity" name="add_item_form_quantity" type="text" autocomplete="off" required><br>
+            <label for="add_item_form_location"> Location: </label>
+            <select id="add_item_form_location" name="add_item_form_location" autocomplete="off"required></select><br>
+            <label for="add_item_form_type"> Type: </label>
+            <select id="add_item_form_type" name="add_item_form_type" autocomplete="off" required></select><br>
+    
+            <input id="add_item_form_submit" type="submit" value="Add Item">
+            <input id="add_item_form_cancel" type="button" value="Cancel" onclick="cancelForm()">
+          </form>
+        </div>
+        <div id="inventory_list_rect">
+          <h2> Inventory </h2>
+          <div id="filter_ist_rect">
+            <h2> Filter by: </h2>
+            <button onclick="currentFilterType = FilterType.itemType; filterInventoryTable();"> Type </button>
+            <button onclick="currentFilterType = FilterType.location; filterInventoryTable();"> Location </button>
+            <p id="filter_by_text"> Filter type </p>
+          </div>
+          <button onclick="addItemFormUpdateDropLists()"> + </button>
+          <table id="inventory_list" style="overflow-y: scroll;">
+            <tr>
+              <th> Item Name </th>
+              <th> Quantity </th>
+              <th> Location </th>
+              <th> Type </th>
+            </tr>
+          </table>
+        </div>
+      </main>
+      <aside id="sidebar">
+        <h1 class="sidebar_panel_title"> Overview </h1>
+        <div class="sidebar_panel">
+          <h2> Total Units </h2>
+          <p class="sidebar_panel_text"> Placeholder </p>
+        </div>
+        <div class="sidebar_panel">
+          <h2> Last Updated </h2>
+          <p class="sidebar_panel_text"> Placeholder </p>
+        </div>
+      </aside>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="database.js" defer></script>

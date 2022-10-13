@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 table {
     font-family: Arial, sans-serif;
     border-collapse: collapse;
@@ -12,9 +17,22 @@ td, th {
 
 body {
     font-family: monospace;
-    color: rgb(240, 229, 188);
-    background-color: rgb(36, 33, 35);
-    border-color: rgb(240, 229, 188);
+    color: #f0e5bc;
+    background-color: #242123;
+    border-color: #f0e5bc;
+}
+
+main {
+    width: 80%;
+    padding: 20px;
+}
+
+aside {
+    position: sticky;
+    top: 0;
+    left: 100%;
+    height: 100vh;
+    width: 20%;
 }
 
 .ctx_menu_hide { display: none; }
@@ -31,7 +49,7 @@ body {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
-    background-color: antiquewhite;
+    background-color: #faebd7;
     width: 600px;
     height: 500px;
     padding: 16px;
@@ -51,7 +69,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(55, 49, 53, 0.99);
+    background-color: #373135fc;
     padding: 20px;
     border-radius: 5px;
     z-index: 1;
@@ -59,6 +77,29 @@ body {
 
 #add_item_rect * {
     margin: 10px;
+}
+
+#sidebar {
+    border-left: 1px solid #f0e5bc;
+    padding: 20px;
+}
+
+.sidebar_panel {
+    padding: 10px 0;
+}
+
+.sidebar_panel_title {
+    margin: 20px 0;
+}
+
+.sidebar_panel_text {
+    margin-left: 20px;
+    color: var(--tertiary);
+}
+
+.split_vertical {
+    display: flex;
+    flex-direction: row;
 }
 
 .remove_focus {
