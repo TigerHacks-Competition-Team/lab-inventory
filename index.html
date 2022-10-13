@@ -6,7 +6,24 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div class="split_vertical">
+    <div id="add_item_rect" style="display: none;">
+      <form id="add_item_form" onsubmit="addItemFormOnSubmit()">
+        <label for="add_item_form_name"> Item name: </label>
+        <input id="add_item_form_name" name="add_item_form_name" type="text" autocomplete="off" required><br>
+        <label for="add_item_form_image"> Image: </label>
+        <input id="add_item_form_image" name="add_item_form_image" type="file" autocomplete="off" required><br>
+        <label for="add_item_form_quantity"> Quantity: </label>
+        <input id="add_item_form_quantity" name="add_item_form_quantity" type="text" autocomplete="off" required><br>
+        <label for="add_item_form_location"> Location: </label>
+        <select id="add_item_form_location" name="add_item_form_location" autocomplete="off"required></select><br>
+        <label for="add_item_form_type"> Type: </label>
+        <select id="add_item_form_type" name="add_item_form_type" autocomplete="off" required></select><br>
+
+        <input id="add_item_form_submit" type="submit" value="Add Item">
+        <input id="add_item_form_cancel" type="button" value="Cancel" onclick="cancelForm()">
+      </form>
+    </div>
+    <div id="root" class="split_vertical">
       <main>
         <div id="context_menu" class="ctx_menu_hide">
           <ul>
@@ -17,23 +34,6 @@
         </div>
         <div id="item_profile_rect" style="display: none;">
             <div id="item_profile"></div>
-        </div>
-        <div id="add_item_rect" style="display: none;">
-          <form id="add_item_form" onsubmit="addItemFormOnSubmit()">
-            <label for="add_item_form_name"> Item name: </label>
-            <input id="add_item_form_name" name="add_item_form_name" type="text" autocomplete="off" required><br>
-            <label for="add_item_form_image"> Image: </label>
-            <input id="add_item_form_image" name="add_item_form_image" type="file" autocomplete="off" required><br>
-            <label for="add_item_form_quantity"> Quantity: </label>
-            <input id="add_item_form_quantity" name="add_item_form_quantity" type="text" autocomplete="off" required><br>
-            <label for="add_item_form_location"> Location: </label>
-            <select id="add_item_form_location" name="add_item_form_location" autocomplete="off"required></select><br>
-            <label for="add_item_form_type"> Type: </label>
-            <select id="add_item_form_type" name="add_item_form_type" autocomplete="off" required></select><br>
-    
-            <input id="add_item_form_submit" type="submit" value="Add Item">
-            <input id="add_item_form_cancel" type="button" value="Cancel" onclick="cancelForm()">
-          </form>
         </div>
         <div id="inventory_list_rect">
           <h2> Inventory </h2>

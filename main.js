@@ -59,7 +59,7 @@ function addItemFormOnSubmit() {
 
         // Update table after adding new element
         updateTableFromServer()
-        document.querySelector("#add_item_rect").style.display = "none"
+        document.querySelector("#add_item_rect").style.display = "none";
     });
     
 }
