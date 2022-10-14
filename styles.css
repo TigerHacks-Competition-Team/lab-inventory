@@ -23,18 +23,41 @@ input::file-selector-button {
 
 input[type="number"],
 input[type="text"],
-input[type="file"] {
+input[type="file"],
+select {
     outline: none;
     border: none;
-    border-bottom: 2px solid rgba(240, 229, 188, 0.55);
+    border-bottom: 2px solid rgba(240, 229, 188, 0.056);
     color: rgb(240, 229, 188);
     background: transparent;
-    transition: .5s;
+    transition: .3s;
 }
 
-input:hover, input:focus {
+input:hover,
+input:focus,
+select:hover,
+select:focus {
     border-bottom: 2px solid rgb(240, 229, 188);
-    transition: .5s;
+    transition: .3s;
+}
+
+input[type="button"],
+input[type="submit"],
+button {
+    outline: none;
+    border: none;
+    margin: 10px 0;
+    padding: 5px;
+    background: rgba(240, 229, 188, 0.73);
+    color: rgb(36, 33, 35);
+    transition: .2s;
+}
+
+input[type="button"]:hover,
+input[type="submit"]:hover,
+button:hover {
+    background: rgb(240, 229, 188);
+    transition: .2s;
 }
 
 .ctx_menu_hide { display: none; }
@@ -43,6 +66,10 @@ input:hover, input:focus {
     z-index: 999;
     position: absolute;
     display: block;
+}
+
+#add_new_item {
+    padding: 2px 6px;
 }
 
 #item_profile {
