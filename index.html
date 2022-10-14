@@ -1,64 +1,177 @@
 <!DOCTYPE html>
 <html>
+  
   <head>
-    <title> Lab Inventory </title>
+    <title>Lab Inventory</title>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/fontawesome-free@1.0.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="styles.css" id="override-styles">
   </head>
+
   <body>
-    <div id="root">
-      <div id="context_menu" class="ctx_menu_hide">
-        <ul>
-          <li> <button class="ctx_menu_button" onclick="viewItemProfile()"> View </button> </li>
-          <li> <button class="ctx_menu_button"> Checkout </button> </li>
-          <li> <button class="ctx_menu_button"> Remove </button> </li>
-        </ul>
-      </div>
-      <div id="item_profile_rect" style="display: none;">
-          <div id="item_profile">
 
-          </div>
-      </div>
-      <div id="inventory_list_rect">
-        <h2> Inventory </h2>
-        <div id="filter_list_rect">
-          <h2> Filter by: </h2>
-          <button onclick="currentFilterType = FilterType.itemType; filterInventoryTable();"> Type </button>
-          <button onclick="currentFilterType = FilterType.location; filterInventoryTable();"> Location </button>
-          <p id="filter_by_text"> Filter type </p>
-        </div>
-        <button onclick="addItemFormUpdateDropLists()"> + </button>
-        <div id="add_item_rect" style="display: none;">
-            <form id="add_item_form" onsubmit="addItemFormOnSubmit()">
-              <label for="add_item_form_name"> Item name: </label>
-              <input id="add_item_form_name" name="add_item_form_name" type="text" autocomplete="off"><br>
-              <label for="add_item_form_image"> Image: </label>
-              <input id="add_item_form_image" name="add_item_form_image" type="file" autocomplete="off"><br>
-              <label for="add_item_form_quantity"> Quantity: </label>
-              <input id="add_item_form_quantity" name="add_item_form_quantity" type="text" autocomplete="off"><br>
-              <label for="add_item_form_location"> Location: </label>
-              <select id="add_item_form_location" name="add_item_form_location" autocomplete="off"></select><br>
-              <label for="add_item_form_type"> Type: </label>
-              <select id="add_item_form_type" name="add_item_form_type" autocomplete="off"></select><br>
-
-              <input id="add_item_form_submit" type="submit" value="Add Item">
-              <input id="add_item_form_cancel" type="button" value="Cancel" onclick="cancelForm()">
-            </form>
-        </div>
-        
-        <table id="inventory_list" style="overflow-y: scroll;">
-          <tr>
-            <th> Item Name </th>
-            <th> Quantity </th>
-            <th> Location </th>
-            <th> Type </th>
-          </tr>
-        </table>
-      </div>
+    <div id="context-menu" class="ctx-menu-hide">
+      <ul>
+        <li><button class="ctx-menu-button" onclick="viewItemProfile()">View</button></li>
+        <li><button class="ctx-menu-button">Checkout</button></li>
+        <li><button class="ctx-menu-button">Remove</button></li>
+      </ul>
     </div>
+
+    <div id="item-profile-rect" style="display: none;">
+        <div id="item-profile">
+
+        </div>
+    </div>
+    
+    <h2 class="title">Inventory</h2>
+
+    <button class="button" id="theme-button">
+      <span class="icon">
+        <i class="fas fa-sun" id="theme-icon"></i>
+      </span>
+    </button>
+
+    <div class="dropdown" id="filter-dropdown" onclick="this.classList.toggle('is-active')">
+
+      <div class="dropdown-trigger" aria-controls="filter-dropdown-menu">
+        <button class="button" aria-haspopup="true" aria-controls="filter-dropdown-menu">
+          <span>Filter</span>
+          <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </div>
+
+      <div class="dropdown-menu" id="filter-dropdown-menu" role="menu">
+        <div class="dropdown-content">
+          <a class="dropdown-item" onclick="currentFilterType = FilterType.itemType; filterInventoryTable();">Type</a>
+          <a class="dropdown-item" onclick="currentFilterType = FilterType.location; filterInventoryTable();">Location</a>
+        </div>
+      </div>
+      
+    </div>
+    
+    <button class="button is-link" onclick="addItemFormUpdateDropLists()">
+      <span>Add Item</span>
+      <span class="icon is-small">
+        <i class="fas fa-plus"></i>
+      </span>
+    </button>
+
+    <div class="modal" id="add-item-modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          <form id="add-item-form" onsubmit="addItemFormOnSubmit()">
+
+            <h2 class="title">Add Item</h2>
+
+            <div class="field">
+              <label class="label">Item Name</label>
+              <div class="control">
+                <input type="text" class="input" id="add-item-form-name" name="add-item-form-name" placeholder="Enter item name..." autocomplete="off" >
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Quantity</label>
+              <div class="control">
+                <input type="text" class="input" id="add-item-form-quantity" name="add-item-form-quantity" placeholder="Enter an amount..." autocomplete="off">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Image</label>
+              <div class="control">
+                <div class="file">
+                  <label class="file-label">
+
+                    <input type="file" class="file-input" id="add-item-form-image" name="add-item-form-image" name="resume" autocomplete="off">
+
+                    <span class="file-cta">
+                      <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                      </span>
+
+                      <span class="file-label">
+                        Choose an image...
+                      </span>
+                    </span>
+
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Location</label>
+              <div class="select">
+                <select id="add-item-form-location" name="add-item-form-location"></select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Type</label>
+              <div class="select">
+                <select id="add-item-form-type" name="add-item-form-type"></select>
+              </div>
+            </div>
+
+            <div class="field is-grouped">
+              <div class="control">
+                <button class="button is-link" id="add-item-form-submit">Add Item</button>
+              </div>
+              <div class="control">
+                <button class="button is-link is-light" onclick="document.getElementById('add-item-modal').classList.remove('is-active');" >Cancel</button>
+              </div>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close" onclick="this.parentElement.classList.toggle('is-active')"></button>
+    </div>
+    
+    <table class="table is-bordered is-striped is-hoverable is-fullwidth" id="inventory-list" data-sortable>
+      
+      <thead>
+        <th>
+          Item Name
+          <span class="icon sort-icon">
+            <i class="fas fa-sort" style=></i>
+          </span>
+        </th>
+        <th data-sortable-type="numeric">
+          Quantity
+          <span class="icon sort-icon">
+            <i class="fas fa-sort" style=></i>
+          </span>
+        </th>
+        <th>
+          Location
+          <span class="icon sort-icon">
+            <i class="fas fa-sort" style=></i>
+          </span>
+        </th>
+        <th>
+          Type
+          <span class="icon sort-icon">
+            <i class="fas fa-sort" style=></i>
+          </span>
+        </th>
+      </thead>
+
+      <tbody id="inventory-data"></tbody>
+
+    </table>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="database.js" defer></script>
     <script src="utils.js" defer></script>
     <script src="main.js" defer></script>
+    <script src="sortable.min.js"></script>
   </body>
 </html>

@@ -1,3 +1,46 @@
+
+// dark mode, load before other things so page doesn't flash white
+let theme = window.localStorage.getItem("theme") || 
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light");
+if (theme == "dark") {
+    console.log(theme)
+    enableDarkTheme()
+}
+
+function enableDarkTheme() {
+    let link = document.createElement("link");
+    link.id = "dark-theme";
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href = "https://unpkg.com/bulmaswatch/darkly/bulmaswatch.min.css";
+
+    let head = document.getElementsByTagName("head")[0];
+    head.insertBefore(link, document.getElementById("override-styles"));
+
+    document.getElementById("theme-icon").classList.remove("fa-sun")
+    document.getElementById("theme-icon").classList.add("fa-moon")
+
+    document.body.className = "dark";
+}
+
+// dark mode button
+document.getElementById("theme-button").addEventListener("click", e => {
+
+    if (document.getElementById("dark-theme")) {
+
+        document.getElementById("dark-theme").remove();
+        document.body.classList.remove("dark");
+        document.getElementById("theme-icon").classList.remove("fa-moon");
+        document.getElementById("theme-icon").classList.add("fa-sun");
+
+        window.localStorage.setItem("theme", "light")
+    } else {
+        window.localStorage.setItem("theme", "dark")
+        enableDarkTheme();
+    }
+});
+
+
 const { createClient } = supabase,
       _supabase = createClient('https://apdqcjlnovlnwziquaye.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFwZHFjamxub3Zsbnd6aXF1YXllIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ1Njg5NDAsImV4cCI6MTk4MDE0NDk0MH0.qESxhTdMvDRuGyNhC9C65S3Syq4iSIGMh5KEjTBG6K0');
 
@@ -5,7 +48,7 @@ var currentFilterType = FilterType.none;
 var items = [];
 
 // Prevent form from submitting when the Enter key is pressed
-document.querySelector('#add_item_form').addEventListener("submit", (event) => {
+document.querySelector('#add-item-form').addEventListener("submit", (event) => {
     event.preventDefault();
 });
 
@@ -14,24 +57,24 @@ window.onload = async () => {
     await updateTableFromServer()
 
     // Context menu logic
-    document.querySelectorAll(".inventory_list_row").forEach(row => {
+    document.querySelectorAll(".inventory-list-row").forEach(row => {
         row.addEventListener("contextmenu", (event) => {
             event.preventDefault();
-            let contextMenu = document.querySelector("#context_menu");
-            contextMenu.className = "ctx_menu_show";
+            let contextMenu = document.querySelector("#context-menu");
+            contextMenu.className = "ctx-menu-show";
             contextMenu.style.left = (event.pageX - 20) + "px";
             contextMenu.style.top = (event.pageY - 20) + "px";
         }, false)
     });
 
     document.body.addEventListener("click", (event) => {
-        let contextMenu = document.querySelector("#context_menu");
-        if (contextMenu.className == "ctx_menu_hide") { return; }
+        let contextMenu = document.querySelector("#context-menu");
+        if (contextMenu.className == "ctx-menu-hide") { return; }
 
-        contextMenu.className = "ctx_menu_hide";
+        contextMenu.className = "ctx-menu-hide";
     }, false)
 
-    document.querySelectorAll(".ctx_menu_button").forEach(button => {
+    document.querySelectorAll(".ctx-menu-button").forEach(button => {
         button.addEventListener("contextmenu", (event) => {
             event.preventDefault();
         })
@@ -42,39 +85,40 @@ window.onload = async () => {
 // - anhatthezoo 
 
 function addItemFormOnSubmit() {
-    const form = document.forms.add_item_form.elements;
-    let file = document.querySelector("#add_item_form_image").files[0],
+    let file = document.querySelector("#add-item-form-image").files[0],
         reader = new FileReader();
 
     if (file) { reader.readAsDataURL(file); } else {
         addNewItemToDatabase(
-            form.add_item_form_name.value,
+            document.getElementById("add-item-form-name").value,
             undefined,
-            parseInt(form.add_item_form_quantity.value),
-            form.add_item_form_location.value,
-            form.add_item_form_type.value
+            parseInt(document.getElementById("add-item-form-quantity").value),
+            document.getElementById("add-item-form-location").value,
+            document.getElementById("add-item-form-type").value
         ).then(() => {
             updateTableFromServer()
-            document.querySelector("#add_item_rect").style.display = "none"
         })
     }
     // Add item to database after FileReader has finished     
     reader.addEventListener("load", async () => {
         await addNewItemToDatabase(
-            form.add_item_form_name.value,
+            document.getElementById("add-item-form-name").value,
             reader.result,                                      // Image encoded as a base64 string
-            parseInt(form.add_item_form_quantity.value),
-            form.add_item_form_location.value,
-            form.add_item_form_type.value
+            parseInt(document.getElementById("add-item-form-quantity").value),
+            document.getElementById("add-item-form-location").value,
+            document.getElementById("add-item-form-type").value
         );
 
         // Update table after adding new element
         updateTableFromServer()
-        document.querySelector("#add_item_rect").style.display = "none"
+        document.querySelector("#add-item-rect").style.display = "none"
     });
     
 }
 
-function cancelForm() {
-    document.querySelector('#add_item_rect').style.display = 'none';
-}
+// event listener to hide modal
+window.addEventListener("keydown", e => {
+    if (e.key == "Escape") {
+        document.getElementById("add-item-modal").classList.remove("is-active");
+    }
+});

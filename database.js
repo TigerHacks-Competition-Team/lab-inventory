@@ -36,8 +36,8 @@ async function addItemFormUpdateDropLists() {
     var { data, error } = await _supabase
         .from('locations')
         .select();
-    const locationList = document.querySelector("#add_item_form_location"),
-          itemTypeList = document.querySelector("#add_item_form_type");
+    const locationList = document.querySelector("#add-item-form-location"),
+          itemTypeList = document.querySelector("#add-item-form-type");
 
     for (const item of data){
         let option = document.createElement("option");
@@ -57,7 +57,7 @@ async function addItemFormUpdateDropLists() {
         itemTypeList.appendChild(option);
     }
 
-    document.querySelector('#add_item_rect').style.display = 'block';
+    document.getElementById("add-item-modal").classList.toggle("is-active");
 }
 
 async function getObjectFromId(table, id) {
@@ -83,7 +83,7 @@ async function updateTableFromServer() {
     }
     
     // Get table element and length of children for removing elements
-    let table = document.querySelector("#inventory_list"),
+    let table = document.querySelector("#inventory-data"),
         tableIndex = table.children.length;
 
     // Remove all elements from table, we do it like this instead of a "for of" loop because
@@ -93,7 +93,7 @@ async function updateTableFromServer() {
         let entry = table.children[tableIndex]
 
         // Dont remove table header, for some reason the table header tag came up as tbody istead of th
-        if (entry.tagName === "TBODY") {continue}
+        if (entry.tagName === "THEAD") {continue}
 
         // Remove the table row
         entry.remove()
@@ -103,7 +103,7 @@ async function updateTableFromServer() {
     for (const item of data) {
         // create table row and append it to the main table
         let tableRow = document.createElement("tr");
-        tableRow.className = "inventory_list_row";
+        tableRow.className = "inventory-list-row";
         tableRow.dataset.id = item.id;
         table.appendChild(tableRow);
         

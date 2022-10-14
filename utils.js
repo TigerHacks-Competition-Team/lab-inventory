@@ -5,14 +5,14 @@ const FilterType = {
 }
 
 function filterInventoryTable() {
-    let table = document.querySelector("#inventory_list"),
+    let table = document.querySelector("#inventory-list"),
         tableIndex = table.children.length;
     
     while (tableIndex--) {
         let entry = table.children[tableIndex]
 
         // Dont remove table header, for some reason the table header tag came up as tbody istead of th
-        if (entry.tagName === "TBODY") {continue}
+        if (entry.tagName === "THEAD") {continue}
 
         // Remove the table row
         entry.remove()
@@ -20,5 +20,5 @@ function filterInventoryTable() {
 }
 
 function viewItemProfile() {
-    document.querySelector("#item_profile_rect").style.display = "block";
+    document.querySelector("#item-profile-rect").style.display = "block";
 }

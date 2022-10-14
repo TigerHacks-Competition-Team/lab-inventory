@@ -1,61 +1,54 @@
-table {
-    font-family: Arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
 
 body {
-    font-family: monospace;
-    color: rgb(240, 229, 188);
-    background-color: rgb(36, 33, 35);
-    border-color: rgb(240, 229, 188);
+    margin: 1rem;
 }
 
-.ctx_menu_hide { display: none; }
+th:hover {
+    background-color: #FAFAFA;
+}
+body.dark th:hover {
+    background-color: #2d3435;
+}
 
-.ctx_menu_show {
+/* fix table darkmode coloring bug */
+body.dark .table tbody tr:not(.is-selected):nth-child(2n) {
+    background-color: #2d3435;
+}
+body.dark .table.is-hoverable tbody tr:not(.is-selected):hover {
+    background-color: #2d3435;
+}
+body.dark .table.is-hoverable tbody tr:not(.is-selected):hover:nth-child(2n) {
+    background-color: #282f2f;
+}
+
+/* dark mode font fix */
+body, button, input, optgroup, select, textarea {
+    font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.title {
+    font-weight: 600;
+}
+
+#filter-dropdown {
+    margin-bottom: 1rem;
+}
+
+#inventory-list thead {
+    cursor: pointer;
+}
+
+#theme-button {
+    float: right;
+}
+
+.sort-icon {
+    float: right;
+}
+
+.ctx-menu-hide { display: none; }
+
+.ctx-menu-show {
     z-index: 999;
     position: absolute;
     display: block;
-}
-
-#item_profile {
-    position: absolute;
-    z-index: 950;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    border-radius: 20px;
-    background-color: antiquewhite;
-    width: 600px;
-    height: 500px;
-    padding: 16px;
-}
-
-#item_profile_rect {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 500px;
-    width: 700px;
-}
-
-#add_item_rect {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(55, 49, 53, 0.99);
-    padding: 20px;
-    border-radius: 5px;
-}
-
-#add_item_rect * {
-    margin: 10px;
 }
