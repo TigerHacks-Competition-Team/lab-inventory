@@ -110,3 +110,14 @@ window.addEventListener("keydown", e => {
         document.getElementById("add-item-modal").classList.remove("is-active");
     }
 });
+
+for (const elem of document.getElementsByTagName("th")) {
+    let sort = e.target.dataset;
+    if (sort.sorted) {
+        if (sort.sortedDirection == "ascending") {
+
+        }
+    } else {
+        
+    }
+}
