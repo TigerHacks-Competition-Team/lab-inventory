@@ -36,6 +36,11 @@ body.dark a.dropdown-item:hover, body.dark button.dropdown-item:hover {
     color: rgb(225, 225, 225);
 }
 
+.icon img {
+    width: 1em;
+    height: 1em;
+}
+
 #add-item-button {
     margin-bottom: 1em;
 }
