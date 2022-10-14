@@ -39,6 +39,11 @@ async function addItemFormUpdateDropLists() {
     const locationList = document.querySelector("#add-item-form-location"),
           itemTypeList = document.querySelector("#add-item-form-type");
 
+    let locationLength = locationList.children.length
+    while (locationLength--) {
+        locationList.children[locationLength].remove()
+    }
+
     for (const item of data){
         let option = document.createElement("option");
         option.value = item.id;
@@ -49,6 +54,11 @@ async function addItemFormUpdateDropLists() {
     var { data, err } = await _supabase
         .from('itemTypes')
         .select();
+
+    let itemTypeLength = itemTypeList.children.length
+    while (itemTypeLength--) {
+        itemTypeList.children[itemTypeLength].remove()
+    }
 
     for (const item of data){
         let option = document.createElement("option");

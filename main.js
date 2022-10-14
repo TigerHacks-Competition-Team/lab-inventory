@@ -87,18 +87,8 @@ window.onload = async () => {
 function addItemFormOnSubmit() {
     let file = document.querySelector("#add-item-form-image").files[0],
         reader = new FileReader();
-
-    if (file) { reader.readAsDataURL(file); } else {
-        addNewItemToDatabase(
-            document.getElementById("add-item-form-name").value,
-            undefined,
-            parseInt(document.getElementById("add-item-form-quantity").value),
-            document.getElementById("add-item-form-location").value,
-            document.getElementById("add-item-form-type").value
-        ).then(() => {
-            updateTableFromServer()
-        })
-    }
+    handleFocus(0);
+    if (file) { reader.readAsDataURL(file); }
     // Add item to database after FileReader has finished     
     reader.addEventListener("load", async () => {
         await addNewItemToDatabase(
