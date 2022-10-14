@@ -29,6 +29,13 @@ body, button, input, optgroup, select, textarea {
     font-weight: 600;
 }
 
+/* dropdown hover color fix */
+body.dark a.dropdown-item:hover, body.dark button.dropdown-item:hover {
+    /* lighter instead of darker: background-color: rgb(45, 52, 52); */
+    background-color: rgb(35, 42, 42);
+    color: rgb(225, 225, 225);
+}
+
 #filter-dropdown {
     margin-bottom: 1rem;
 }
@@ -45,10 +52,8 @@ body, button, input, optgroup, select, textarea {
     float: right;
 }
 
-.ctx-menu-hide { display: none; }
-
-.ctx-menu-show {
-    z-index: 999;
+#context-menu {
+    z-index: 10001;
     position: absolute;
     display: block;
 }

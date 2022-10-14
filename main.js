@@ -61,17 +61,15 @@ window.onload = async () => {
         row.addEventListener("contextmenu", (event) => {
             event.preventDefault();
             let contextMenu = document.querySelector("#context-menu");
-            contextMenu.className = "ctx-menu-show";
-            contextMenu.style.left = (event.pageX - 20) + "px";
-            contextMenu.style.top = (event.pageY - 20) + "px";
+            contextMenu.classList.remove("is-hidden");
+            contextMenu.style.left = event.pageX + "px";
+            contextMenu.style.top = event.pageY + "px";
         }, false)
     });
 
     document.body.addEventListener("click", (event) => {
         let contextMenu = document.querySelector("#context-menu");
-        if (contextMenu.className == "ctx-menu-hide") { return; }
-
-        contextMenu.className = "ctx-menu-hide";
+        contextMenu.classList.add("is-hidden")
     }, false)
 
     document.querySelectorAll(".ctx-menu-button").forEach(button => {
