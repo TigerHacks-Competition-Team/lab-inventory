@@ -57,21 +57,3 @@ body.dark a.dropdown-item:hover, body.dark button.dropdown-item:hover {
     position: absolute;
     display: block;
 }
-
-.remove_focus {
-    animation: rm_focus .2s ease-in forwards;
-}
-
-.add_focus {
-    animation: add_focus .2s ease-in forwards;
-}
-
-@keyframes add_focus {
-    0% { opacity: .1; }
-    100% { opacity: 1; }
-}
-
-@keyframes rm_focus {
-    0% { opacity: 1; }
-    100% { opacity: .1; }
-}
