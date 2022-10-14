@@ -17,6 +17,26 @@ body {
     border-color: rgb(240, 229, 188);
 }
 
+input::file-selector-button {
+    display: none;
+}
+
+input[type="number"],
+input[type="text"],
+input[type="file"] {
+    outline: none;
+    border: none;
+    border-bottom: 2px solid rgba(240, 229, 188, 0.55);
+    color: rgb(240, 229, 188);
+    background: transparent;
+    transition: .5s;
+}
+
+input:hover, input:focus {
+    border-bottom: 2px solid rgb(240, 229, 188);
+    transition: .5s;
+}
+
 .ctx_menu_hide { display: none; }
 
 .ctx_menu_show {
