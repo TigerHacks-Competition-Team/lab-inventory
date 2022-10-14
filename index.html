@@ -13,7 +13,7 @@
         <label for="add_item_form_image"> Image: </label>
         <input id="add_item_form_image" name="add_item_form_image" type="file" autocomplete="off" required><br>
         <label for="add_item_form_quantity"> Quantity: </label>
-        <input id="add_item_form_quantity" name="add_item_form_quantity" type="text" autocomplete="off" required><br>
+        <input id="add_item_form_quantity" name="add_item_form_quantity" type="number" autocomplete="off" required><br>
         <label for="add_item_form_location"> Location: </label>
         <select id="add_item_form_location" name="add_item_form_location" autocomplete="off"required></select><br>
         <label for="add_item_form_type"> Type: </label>
@@ -42,7 +42,7 @@
           <button onclick="currentFilterType = FilterType.location; filterInventoryTable();"> Location </button>
           <p id="filter_by_text"> Filter type </p>
         </div>
-        <button onclick="addItemFormUpdateDropLists()"> + </button>
+        <button id="add_new_item" onclick="addItemFormUpdateDropLists()"> + </button>
         <table id="inventory_list" style="overflow-y: scroll;">
           <tr>
             <th> Item Name </th>
