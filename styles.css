@@ -36,8 +36,8 @@ body.dark a.dropdown-item:hover, body.dark button.dropdown-item:hover {
     color: rgb(225, 225, 225);
 }
 
-#filter-dropdown {
-    margin-bottom: 1rem;
+#add-item-button {
+    margin-bottom: 1em;
 }
 
 #inventory-list thead {

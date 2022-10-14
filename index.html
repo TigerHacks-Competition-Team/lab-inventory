@@ -32,28 +32,8 @@
         <i class="fas fa-sun" id="theme-icon"></i>
       </span>
     </button>
-
-    <div class="dropdown" id="filter-dropdown" onclick="this.classList.toggle('is-active')">
-
-      <div class="dropdown-trigger" aria-controls="filter-dropdown-menu">
-        <button class="button" aria-haspopup="true" aria-controls="filter-dropdown-menu">
-          <span>Filter</span>
-          <span class="icon is-small">
-            <i class="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
-        </button>
-      </div>
-
-      <div class="dropdown-menu" id="filter-dropdown-menu" role="menu">
-        <div class="dropdown-content">
-          <a class="dropdown-item" onclick="currentFilterType = FilterType.itemType; filterInventoryTable();">Type</a>
-          <a class="dropdown-item" onclick="currentFilterType = FilterType.location; filterInventoryTable();">Location</a>
-        </div>
-      </div>
-      
-    </div>
     
-    <button class="button is-link" onclick="addItemFormUpdateDropLists()">
+    <button class="button is-link" id="add-item-button" onclick="addItemFormUpdateDropLists()">
       <span>Add Item</span>
       <span class="icon is-small">
         <i class="fas fa-plus"></i>
