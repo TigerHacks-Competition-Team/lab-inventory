@@ -57,7 +57,7 @@ window.onload = async () => {
     await updateTableFromServer()
 
     // Context menu logic
-    document.getElementsByClassName("inventory-list-row").forEach(row => {
+    for (const row of document.getElementsByClassName("inventory-list-row")) {
         row.addEventListener("contextmenu", (event) => {
             event.preventDefault();
 
@@ -75,7 +75,7 @@ window.onload = async () => {
             contextMenu.style.left = event.pageX + "px";
             contextMenu.style.top = event.pageY + "px";
         }, false)
-    });
+    };
 
     window.addEventListener("click", (event) => {
         let contextMenu = document.getElementById("context-menu");
@@ -86,11 +86,11 @@ window.onload = async () => {
         contextMenu.classList.add("is-hidden");
     }, false)
 
-    document.getElementsByClassName("ctx-menu-button").forEach(button => {
+    for (const button of document.getElementsByClassName("ctx-menu-button")) {
         button.addEventListener("contextmenu", (event) => {
             event.preventDefault();
         })
-    })
+    }
 }
 
 // TODO: set the file limit for images to 2MB only? Larger images brings supabase web client down to its knees
