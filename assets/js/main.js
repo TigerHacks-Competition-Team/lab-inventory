@@ -98,7 +98,7 @@ function addItemFormOnSubmit() {
 
         // Update table after adding new element
         updateTableFromServer()
-        document.querySelector("#add-item-rect").style.display = "none"
+        document.getElementById("add-item-modal").classList.remove("is-active")
     });
     
 }
