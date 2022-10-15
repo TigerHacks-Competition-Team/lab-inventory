@@ -11,9 +11,9 @@
         <label for="add_item_form_name"> Item name: </label>
         <input id="add_item_form_name" name="add_item_form_name" type="text" autocomplete="off" required><br>
         <label for="add_item_form_image"> Image: </label>
-        <input id="add_item_form_image" name="add_item_form_image" type="file" autocomplete="off" required><br>
+        <input id="add_item_form_image" name="add_item_form_image" type="file" accept=".img,.jpeg,.jpg,.png image/gif, image/jpeg" autocomplete="off" required /><br>
         <label for="add_item_form_quantity"> Quantity: </label>
-        <input id="add_item_form_quantity" name="add_item_form_quantity" type="text" autocomplete="off" required><br>
+        <input id="add_item_form_quantity" name="add_item_form_quantity" type="number" autocomplete="off" required><br>
         <label for="add_item_form_location"> Location: </label>
         <select id="add_item_form_location" name="add_item_form_location" autocomplete="off"required></select><br>
         <label for="add_item_form_type"> Type: </label>
@@ -32,18 +32,8 @@
             <li> <button class="ctx_menu_button"> Remove </button> </li>
           </ul>
         </div>
-        <div id="item_profile_rect" style="display: none;">
-            <div id="item_profile"></div>
-        </div>
         <div id="inventory_list_rect">
-          <h2> Inventory </h2>
-          <div id="filter_ist_rect">
-            <h2> Filter by: </h2>
-            <button onclick="currentFilterType = FilterType.itemType; filterInventoryTable();"> Type </button>
-            <button onclick="currentFilterType = FilterType.location; filterInventoryTable();"> Location </button>
-            <p id="filter_by_text"> Filter type </p>
-          </div>
-          <button onclick="addItemFormUpdateDropLists()"> + </button>
+          <button id="add_new_item" onclick="addItemFormUpdateDropLists()"> + </button>
           <table id="inventory_list" style="overflow-y: scroll;">
             <tr>
               <th> Item Name </th>
