@@ -77,7 +77,7 @@ window.onload = async () => {
         }, false)
     });
 
-    document.body.addEventListener("click", (event) => {
+    window.addEventListener("click", (event) => {
         let contextMenu = document.querySelector("#context-menu");
         
         if (contextMenu.selected) {
