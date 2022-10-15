@@ -197,7 +197,7 @@ document.getElementById("add-item-form-image").addEventListener("change", e => {
 });
 
 // event listeners for form text inputs
-document.getElementById("add-item-form-name").addEventListener("blur", e => {
+document.getElementById("add-item-form-name").addEventListener("input", e => {
     clearInvalidation(e.target);
     if (e.target.value) {
         clearInvalidation(e.target);
@@ -205,7 +205,7 @@ document.getElementById("add-item-form-name").addEventListener("blur", e => {
         invalidateInput(e.target, "You need to enter an item name!");
     }
 });
-document.getElementById("add-item-form-quantity").addEventListener("blur", e => {
+document.getElementById("add-item-form-quantity").addEventListener("input", e => {
     clearInvalidation(e.target);
     if (!e.target.value) {
         invalidateInput(e.target, "You need to enter a quantity!");
