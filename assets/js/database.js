@@ -36,8 +36,8 @@ async function addItemFormUpdateDropLists() {
     var { data, error } = await _supabase
         .from('locations')
         .select();
-    const locationList = document.querySelector("#add-item-form-location"),
-          itemTypeList = document.querySelector("#add-item-form-type");
+    const locationList = document.getElementById("add-item-form-location"),
+          itemTypeList = document.getElementById("add-item-form-type");
 
     let locationLength = locationList.children.length
     while (locationLength--) {
@@ -93,7 +93,7 @@ async function updateTableFromServer() {
     }
     
     // Get table element and length of children for removing elements
-    let table = document.querySelector("#inventory-data"),
+    let table = document.getElementById("inventory-data"),
         tableIndex = table.children.length;
 
     // Remove all elements from table, we do it like this instead of a "for of" loop because

@@ -5,7 +5,7 @@ const FilterType = {
 }
 
 function filterInventoryTable() {
-    let table = document.querySelector("#inventory-list"),
+    let table = document.getElementById("inventory-list"),
         tableIndex = table.children.length;
     
     while (tableIndex--) {
@@ -20,5 +20,5 @@ function filterInventoryTable() {
 }
 
 function viewItemProfile() {
-    document.querySelector("#item-profile-rect").style.display = "block";
+    document.getElementById("item-profile-rect").style.display = "block";
 }

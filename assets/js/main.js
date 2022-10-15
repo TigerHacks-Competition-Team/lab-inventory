@@ -48,7 +48,7 @@ var currentFilterType = FilterType.none;
 var items = [];
 
 // Prevent form from submitting when the Enter key is pressed
-document.querySelector('#add-item-form').addEventListener("submit", (event) => {
+document.getElementById("add-item-form").addEventListener("submit", (event) => {
     event.preventDefault();
 });
 
@@ -57,11 +57,11 @@ window.onload = async () => {
     await updateTableFromServer()
 
     // Context menu logic
-    document.querySelectorAll(".inventory-list-row").forEach(row => {
+    document.getElementsByClassName("inventory-list-row").forEach(row => {
         row.addEventListener("contextmenu", (event) => {
             event.preventDefault();
 
-            let contextMenu = document.querySelector("#context-menu");
+            let contextMenu = document.getElementById("context-menu");
 
             // remove selection on old row
             if (contextMenu.selected) {
@@ -78,7 +78,7 @@ window.onload = async () => {
     });
 
     window.addEventListener("click", (event) => {
-        let contextMenu = document.querySelector("#context-menu");
+        let contextMenu = document.getElementById("context-menu");
         
         if (contextMenu.selected) {
             document.getElementById("inventory-data").children[contextMenu.selected - 1].classList.remove("is-selected");
@@ -86,7 +86,7 @@ window.onload = async () => {
         contextMenu.classList.add("is-hidden");
     }, false)
 
-    document.querySelectorAll(".ctx-menu-button").forEach(button => {
+    document.getElementsByClassName("ctx-menu-button").forEach(button => {
         button.addEventListener("contextmenu", (event) => {
             event.preventDefault();
         })
@@ -119,7 +119,7 @@ function addItemFormOnSubmit() {
         invalid = true;
     }
 
-    let file = document.querySelector("#add-item-form-image").files[0];
+    let file = document.getElementById("add-item-form-image").files[0];
     let reader;
     
     if (file) {
