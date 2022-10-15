@@ -53,21 +53,36 @@ body.dark a.dropdown-item:hover, body.dark button.dropdown-item:hover {
 .sort-icon img {
     width: 1em;
     height: 0.4em;
+    filter: invert(86%); /* #DBDBDB */
 }
 .sort-icon img:first-child {
     margin-bottom: 0.1em;
 }
 
-.sort-icon-empty {
-    filter: invert(86%); /* #DBDBDB */
+/* filters to color the sorting icons for light/dark mode */
+body {
+    --sort-icon-filter: invert(32%) sepia(49%) saturate(1787%) hue-rotate(208deg) brightness(93%) contrast(84%);
 }
-/* Tool used to generate filters that convert black to any color: https://codepen.io/sosuke/pen/Pjoqqp */
-.sort-icon-filled {
-    filter: invert(32%) sepia(49%) saturate(1787%) hue-rotate(208deg) brightness(93%) contrast(84%); /* #485fc7 */
+body.dark {
+    --sort-icon-filter: invert(67%) sepia(91%) saturate(3249%) hue-rotate(126deg) brightness(97%) contrast(80%);
 }
-body.dark .sort-icon-filled {
-    filter: invert(67%) sepia(91%) saturate(3249%) hue-rotate(126deg) brightness(97%) contrast(80%); /* #1abc9c */
+
+/* color sorting icons for sorting direction */
+table[data-sortable] th:not([data-sortable-type="numeric"])[data-sorted="true"][data-sorted-direction="descending"] img:first-child {
+    filter: var(--sort-icon-filter);
 }
+table[data-sortable] th:not([data-sortable-type="numeric"])[data-sorted="true"][data-sorted-direction="ascending"] img:last-child {
+    filter: var(--sort-icon-filter);
+}
+/* with numeric columns, it's reversed for some reason */
+table[data-sortable] th[data-sortable-type="numeric"][data-sorted="true"][data-sorted-direction="descending"] img:last-child {
+    filter: var(--sort-icon-filter);
+}
+table[data-sortable] th[data-sortable-type="numeric"][data-sorted="true"][data-sorted-direction="ascending"] img:first-child {
+    filter: var(--sort-icon-filter);
+}
+
+
 
 
 /* table row coloring */
