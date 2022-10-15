@@ -60,7 +60,17 @@ window.onload = async () => {
     document.querySelectorAll(".inventory-list-row").forEach(row => {
         row.addEventListener("contextmenu", (event) => {
             event.preventDefault();
+
             let contextMenu = document.querySelector("#context-menu");
+
+            // remove selection on old row
+            if (contextMenu.selected) {
+                document.getElementById("inventory-data").children[contextMenu.selected - 1].classList.remove("is-selected");
+            }
+
+            event.target.parentElement.classList.add("is-selected");
+            contextMenu.selected = event.target.parentElement.rowIndex;
+
             contextMenu.classList.remove("is-hidden");
             contextMenu.style.left = event.pageX + "px";
             contextMenu.style.top = event.pageY + "px";
@@ -69,7 +79,11 @@ window.onload = async () => {
 
     document.body.addEventListener("click", (event) => {
         let contextMenu = document.querySelector("#context-menu");
-        contextMenu.classList.add("is-hidden")
+        
+        if (contextMenu.selected) {
+            document.getElementById("inventory-data").children[contextMenu.selected - 1].classList.remove("is-selected");
+        }
+        contextMenu.classList.add("is-hidden");
     }, false)
 
     document.querySelectorAll(".ctx-menu-button").forEach(button => {

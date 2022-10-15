@@ -70,6 +70,20 @@ body.dark .sort-icon-filled {
 }
 
 
+/* table row coloring */
+.table tr.is-selected {
+    background-color: #485fc7;
+}
+.table tr.is-selected td, .table tr.is-selected th {
+    border-color: #DBDBDB;
+}
+body.dark .table tr.is-selected {
+    background-color: #1abc9c;
+}
+body.dark .table tr.is-selected td, .table tr.is-selected th {
+    border-color: #5e6d6f;
+}
+
 #add-item-button {
     margin-bottom: 1em;
 }
@@ -80,7 +94,7 @@ body.dark .sort-icon-filled {
 
 #theme-button {
     float: right;
-}
+} 
 
 .sort-icon {
     float: right;
