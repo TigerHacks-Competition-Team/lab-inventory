@@ -36,10 +36,24 @@ body.dark a.dropdown-item:hover, body.dark button.dropdown-item:hover {
     color: rgb(225, 225, 225);
 }
 
-.icon img {
-    width: 1em;
-    height: 1em;
+
+/* sort icons */
+.sort-icon {
+    display: flex;
+    flex-direction: column;
 }
+.sort-icon img {
+    width: 1em;
+    height: 0.4em;
+}
+.sort-icon img:first-child {
+    margin-bottom: 0.1em;
+}
+
+.sort-icon-empty {
+    filter: invert(86%); /* #DBDBDB */
+}
+
 
 #add-item-button {
     margin-bottom: 1em;

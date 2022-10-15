@@ -113,13 +113,13 @@ window.addEventListener("keydown", e => {
 
 // show correct icons on sorting
 for (let elem of document.getElementsByTagName("th")) {
-    elem.addEventListener("click", () => {
+    elem.addEventListener("click", e => {
+        e.preventDefault();
 
-        let icon = elem.children[0].children[0];
+        let top = elem.children[0].children[0];
+        let bottom = elem.children[0].children[1];
         let sort = elem.dataset;
 
-        console.log(sort.sortedDirection, sort)
-   
         // for some reason, on numeric columns, all the data is outdated (1 sort behind)
         // i think this has something to do with the event listener, maybe it sets the 
         // values later so this code runs before it is set?
@@ -127,20 +127,22 @@ for (let elem of document.getElementsByTagName("th")) {
         // also, some weird stuff happens with sortedDirection, so this fixes that
         if (sort.sorted == "true" || sort.sortedDirection == undefined) {
             if (sort.sortedDirection == (sort.sortableType ? "descending": "ascending")) {
-                icon.src = "./assets/img/sort_up.svg";
+                top.className = "sort-icon-filled";
+                bottom.className = "sort-icon-empty";
             } else {
-                icon.src = "./assets/img/sort_down.svg";
+                top.className = "sort-icon-empty";
+                bottom.className = "sort-icon-filled";
             }
 
             // clear sorting icons on other headers
-            for (const otherIcon of elem.parentElement.getElementsByTagName("img")) {
-                console.log(otherIcon);
-                if (otherIcon != icon) {
-                    otherIcon.src = "./assets/img/sort_empty.svg";
+            for (const icon of elem.parentElement.getElementsByTagName("img")) {
+                if (icon != top && icon != bottom) {
+                    icon.className = "sort-icon-empty";
                 }
             }
         } else {
-            icon.src = "./assets/img/sort_empty.svg";
+            top.className = "sort-icon-empty";
+            bottom.className = "sort-icon-empty";
         }
 
     })
