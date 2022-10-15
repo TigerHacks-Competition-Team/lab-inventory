@@ -41,7 +41,7 @@
     </button>
 
     <div class="modal" id="add-item-modal">
-      <div class="modal-background"></div>
+      <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active')"></div>
       <div class="modal-content">
         <div class="box">
           <form id="add-item-form" onsubmit="addItemFormOnSubmit()">
