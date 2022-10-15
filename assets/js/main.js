@@ -146,3 +146,14 @@ for (let elem of document.getElementsByTagName("th")) {
 
     })
 }
+
+// event listener for form file upload
+document.getElementById("add-item-form-image").addEventListener("change", e => {
+    // show filename next to button
+    let span = document.createElement("span");
+    span.className = "file-name";
+    span.innerText = e.target.files[0].name;
+    e.target.parentElement.appendChild(span);
+
+    e.target.parentElement.parentElement.classList.add("has-name");
+})
