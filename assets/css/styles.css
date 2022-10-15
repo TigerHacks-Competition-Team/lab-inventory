@@ -18,7 +18,16 @@ body.dark th:hover {
     background-color: #2d3435;
 }
 
-/* fix table darkmode coloring bug */
+/* dark theme parity fixes */
+html, .button, .file-cta, .file-name, .input, .pagination-ellipsis, .pagination-link, .pagination-next, .pagination-previous, .select select, .textarea {
+    font-size: 16px;
+    border-radius: 4px;
+}
+.button {
+    border-width: 1px;
+}
+
+/* fix table coloring bug */
 body.dark .table tbody tr:not(.is-selected):nth-child(2n) {
     background-color: #2d3435;
 }
