@@ -115,7 +115,6 @@ async function updateTableFromServer() {
         let tableRow = document.createElement("tr");
         tableRow.className = "inventory-list-row";
         tableRow.dataset.id = item.id;
-        table.appendChild(tableRow);
         
         // create the table data elements
         let name = document.createElement("td"),
@@ -140,6 +139,21 @@ async function updateTableFromServer() {
         tableRow.appendChild(quantity);
         tableRow.appendChild(location);
         tableRow.appendChild(type);
+
+        // find location to insert tableRow
+        let inserted = false;
+        for (const elem of table.children) {
+            // if the name for the row to add goes before
+            if (elem.children[0].innerText.localeCompare(item.name) > 0) {
+                table.insertBefore(tableRow, elem);
+                inserted = true;
+                break;
+            }
+        }
+        
+        if (!inserted) {
+            table.appendChild(tableRow);
+        }
         
     }
 }
