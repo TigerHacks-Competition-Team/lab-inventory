@@ -57,6 +57,18 @@ body.dark a.dropdown-item:hover, body.dark button.dropdown-item:hover {
     color: rgb(225, 225, 225);
 }
 
+/* dark form item background colors */
+body.dark .input, body.dark .select select, body.dark .textarea {
+    background-color: #2D3435;
+    color: #fff;
+}
+body.dark .input::placeholder, body.dark .textarea::placeholder {
+    color: #5e6d6f;
+}
+body.dark .button.is-link.is-light {
+    background-color: #3d4648;
+}
+
 
 /* sort icons */
 .sort-icon {
