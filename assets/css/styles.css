@@ -1,0 +1,147 @@
+
+* {
+    transition: background-color 0.2s, color 0.2s;
+}
+
+body {
+    margin: 1rem;
+}
+
+th {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+th:hover {
+    background-color: #FAFAFA;
+}
+body.dark th:hover {
+    background-color: #2d3435;
+}
+
+/* dark theme parity fixes */
+html, .button, .file-cta, .file-name, .input, .pagination-ellipsis, .pagination-link, .pagination-next, .pagination-previous, .select select, .textarea {
+    font-size: 16px;
+    border-radius: 4px;
+}
+.button {
+    border-width: 1px;
+}
+
+/* fix table coloring bug */
+body.dark .table tbody tr:not(.is-selected):nth-child(2n) {
+    background-color: #2d3435;
+}
+body.dark .table.is-hoverable tbody tr:not(.is-selected):hover {
+    background-color: #2d3435;
+}
+body.dark .table.is-hoverable tbody tr:not(.is-selected):hover:nth-child(2n) {
+    background-color: #282f2f;
+}
+
+/* dark mode font fix */
+body, button, input, optgroup, select, textarea {
+    font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.title {
+    font-weight: 600;
+}
+
+/* dropdown hover color fix */
+body.dark a.dropdown-item:hover, body.dark button.dropdown-item:hover {
+    /* lighter instead of darker: background-color: rgb(45, 52, 52); */
+    background-color: rgb(35, 42, 42);
+    color: rgb(225, 225, 225);
+}
+
+/* dark form item background colors */
+body.dark .input, body.dark .select select, body.dark .textarea {
+    background-color: #2D3435;
+    color: #fff;
+}
+body.dark .input::placeholder, body.dark .textarea::placeholder {
+    color: #5e6d6f;
+}
+body.dark .button.is-link.is-light {
+    background-color: #3d4648;
+}
+
+
+/* sort icons */
+.sort-icon {
+    display: flex;
+    flex-direction: column;
+}
+.sort-icon img {
+    width: 1em;
+    height: 0.4em;
+    filter: invert(86%); /* #DBDBDB */
+}
+.sort-icon img:first-child {
+    margin-bottom: 0.1em;
+}
+
+/* filters to color the sorting icons for light/dark mode */
+body {
+    --sort-icon-filter: invert(32%) sepia(49%) saturate(1787%) hue-rotate(208deg) brightness(93%) contrast(84%);
+}
+body.dark {
+    --sort-icon-filter: invert(67%) sepia(91%) saturate(3249%) hue-rotate(126deg) brightness(97%) contrast(80%);
+}
+
+/* color sorting icons for sorting direction */
+table[data-sortable] th:not([data-sortable-type="numeric"])[data-sorted="true"][data-sorted-direction="descending"] img:first-child {
+    filter: var(--sort-icon-filter);
+}
+table[data-sortable] th:not([data-sortable-type="numeric"])[data-sorted="true"][data-sorted-direction="ascending"] img:last-child {
+    filter: var(--sort-icon-filter);
+}
+/* with numeric columns, it's reversed for some reason */
+table[data-sortable] th[data-sortable-type="numeric"][data-sorted="true"][data-sorted-direction="descending"] img:last-child {
+    filter: var(--sort-icon-filter);
+}
+table[data-sortable] th[data-sortable-type="numeric"][data-sorted="true"][data-sorted-direction="ascending"] img:first-child {
+    filter: var(--sort-icon-filter);
+}
+
+
+
+
+/* table row coloring */
+.table tr.is-selected {
+    background-color: #485fc7;
+}
+.table tr.is-selected td, .table tr.is-selected th {
+    border-color: #DBDBDB;
+}
+body.dark .table tr.is-selected {
+    background-color: #1abc9c;
+}
+body.dark .table tr.is-selected td, .table tr.is-selected th {
+    border-color: #5e6d6f;
+}
+
+#add-item-button {
+    margin-bottom: 1em;
+}
+
+#inventory-list thead {
+    cursor: pointer;
+}
+
+#theme-button {
+    float: right;
+} 
+
+.sort-icon {
+    float: right;
+}
+
+#context-menu {
+    z-index: 10001;
+    position: absolute;
+    display: block;
+}
