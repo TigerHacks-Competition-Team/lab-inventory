@@ -1,9 +1,3 @@
-const FilterType = {
-    location: 'Location',
-    itemType: 'Type',
-    none: 'None'
-}
-
 function filterInventoryTable() {
     let table = document.getElementById("inventory-list"),
         tableIndex = table.children.length;
