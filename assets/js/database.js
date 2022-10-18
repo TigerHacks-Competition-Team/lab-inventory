@@ -12,6 +12,16 @@ async function addNewItemToDatabase(_name, _image, _quantity, _location, _type) 
         ])
 }
 
+async function addNewProject(_name) {
+    await _supabase
+        .from('projects')
+        .insert([
+            { 
+                name: _name, 
+            }
+        ])
+}
+
 async function addNewLocation(_storageName, _storageType, _locationInLab) {
     await _supabase
         .from('locations')
@@ -77,6 +87,10 @@ async function getObjectFromId(table, id) {
         .eq('id', id);
 
     return data;
+}
+
+async function addProjectFormUpdateDropLists() {
+    document.getElementById("add-project-modal").classList.toggle("is-active");
 }
 
 // Gets items from database and puts them into table

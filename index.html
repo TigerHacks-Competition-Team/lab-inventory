@@ -39,6 +39,12 @@
         <i class="fas fa-plus"></i>
       </span>
     </button>
+    <button class="button is-link" id="add-item-button" onclick="addProjectFormUpdateDropLists()">
+      <span>Add Project</span>
+      <span class="icon is-small">
+        <i class="fas fa-plus"></i>
+      </span>
+    </button>
 
     <div class="modal" id="add-item-modal">
       <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active')"></div>
@@ -105,6 +111,36 @@
               </div>
               <div class="control">
                 <button class="button is-link is-light" type="button" onclick="document.getElementById('add-item-modal').classList.remove('is-active');">Cancel</button>
+              </div>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close" onclick="this.parentElement.classList.toggle('is-active')"></button>
+    </div>
+
+    <div class="modal" id="add-project-modal">
+      <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active')"></div>
+      <div class="modal-content">
+        <div class="box">
+          <form id="add-project-form" onsubmit="addProjectFormOnSubmit()">
+
+            <h2 class="title">Add Project</h2>
+
+            <div class="field">
+              <label class="label">Project Name</label>
+              <div class="control">
+                <input type="text" class="input" id="add-project-form-name" name="add-project-form-name" placeholder="Enter project name..." autocomplete="off">
+              </div>
+            </div>
+
+            <div class="field is-grouped">
+              <div class="control">
+                <button class="button is-link" type="submit" id="add-project-form-submit">Add Project</button>
+              </div>
+              <div class="control">
+                <button class="button is-link is-light" type="button" onclick="document.getElementById('add-project-modal').classList.remove('is-active');">Cancel</button>
               </div>
             </div>
             

@@ -11,6 +11,9 @@ var items = [];
 document.getElementById("add-item-form").addEventListener("submit", (event) => {
     event.preventDefault();
 });
+document.getElementById("add-project-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+});
 
 window.onload = async () => {
     // Fetch server data on page load
@@ -108,6 +111,28 @@ function addItemFormOnSubmit() {
         document.getElementById("add-item-modal").classList.remove("is-active")
     });
     
+}
+
+function addProjectFormOnSubmit() {
+
+    // clear old invalidation (if any)
+    clearInvalidation(document.getElementById("add-project-form-name"));
+
+    let invalid = false;
+
+    // empty input validation
+    if (!document.getElementById("add-project-form-name").value) {
+        invalidateInput(document.getElementById("add-project-form-name"), "You need to enter a project name!");
+        invalid = true;
+    }
+
+    if (invalid) { return; }
+
+    addNewProject(
+        document.getElementById("add-project-form-name").value,
+    );
+
+    document.getElementById("add-project-modal").classList.remove("is-active")
 }
 
 // event listener to hide modal
