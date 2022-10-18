@@ -1,10 +1,6 @@
-
-
-
 const { createClient } = supabase,
       _supabase = createClient('https://apdqcjlnovlnwziquaye.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFwZHFjamxub3Zsbnd6aXF1YXllIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ1Njg5NDAsImV4cCI6MTk4MDE0NDk0MH0.qESxhTdMvDRuGyNhC9C65S3Syq4iSIGMh5KEjTBG6K0');
 
-var currentFilterType = FilterType.none;
 var items = [];
 
 // Prevent form from submitting when the Enter key is pressed
@@ -55,9 +51,6 @@ window.onload = async () => {
         })
     }
 }
-
-// TODO: set the file limit for images to 2MB only? Larger images brings supabase web client down to its knees
-// - anhatthezoo 
 
 function addItemFormOnSubmit() {
 
@@ -145,6 +138,10 @@ window.addEventListener("keydown", e => {
 // event listener for form file upload
 document.getElementById("add-item-form-image").addEventListener("change", e => {
     if (!e.target.files) { return; }
+    if (e.target.files[0].size > 2097152) {
+        invalidateInput(e.target, "Max image size is 2MB.");
+        return;
+    }
 
     // show filename next to button
     let span = document.createElement("span");
