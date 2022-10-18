@@ -139,7 +139,7 @@ window.addEventListener("keydown", e => {
 document.getElementById("add-item-form-image").addEventListener("change", e => {
     if (!e.target.files) { return; }
     if (e.target.files[0].size > 2097152) {
-        invalidateInput(e.target, "Max image size is 2MB.");
+        // invalidateInput(e.target, "Max image size is 2MB.");
         return;
     }
 
