@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> Lab Inventory </title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://unpkg.com/fontawesome-free@1.0.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="assets/css/styles.css" id="override-styles">
+    <title>Lab Inventory</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script rel="preload" as="script" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/fontawesome-free@1.0.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" id="override-styles" />
+    <script src="assets/js/sortable.min.js" defer></script>
   </head>
-
   <body>
-
     <div id="context-menu" class="dropdown-menu is-hidden">
       <div class="dropdown-content">
-        <a class="dropdown-item ctx-menu-button" onclick="viewItemProfile()">View</a>
+        <a class="dropdown-item ctx-menu-button" onclick="viewItemProfile()"
+          >View</a
+        >
         <a class="dropdown-item ctx-menu-button">Checkout</a>
         <a class="dropdown-item ctx-menu-button">Remove</a>
       </div>
     </div>
 
-    <div id="item-profile-rect" style="display: none;">
-        <div id="item-profile">
-
-        </div>
+    <div id="item-profile-rect" style="display: none">
+      <div id="item-profile"></div>
     </div>
-    
+
     <h2 class="title">Inventory</h2>
 
     <button class="button" id="theme-button">
@@ -32,8 +32,12 @@
         <i class="fas fa-sun" id="theme-icon"></i>
       </span>
     </button>
-    
-    <button class="button is-link" id="add-item-button" onclick="addItemFormUpdateDropLists()">
+
+    <button
+      class="button is-link"
+      id="add-item-button"
+      onclick="addItemFormUpdateDropLists()"
+    >
       <span>Add Item</span>
       <span class="icon is-small">
         <i class="fas fa-plus"></i>
@@ -47,24 +51,40 @@
     </button>
 
     <div class="modal" id="add-item-modal">
-      <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active')"></div>
+      <div
+        class="modal-background"
+        onclick="this.parentElement.classList.toggle('is-active')"
+      ></div>
       <div class="modal-content">
         <div class="box">
           <form id="add-item-form" onsubmit="addItemFormOnSubmit()">
-
             <h2 class="title">Add Item</h2>
 
             <div class="field">
               <label class="label">Item Name</label>
               <div class="control">
-                <input type="text" class="input" id="add-item-form-name" name="add-item-form-name" placeholder="Enter item name..." autocomplete="off">
+                <input
+                  type="text"
+                  class="input"
+                  id="add-item-form-name"
+                  name="add-item-form-name"
+                  placeholder="Enter item name..."
+                  autocomplete="off"
+                />
               </div>
             </div>
 
             <div class="field">
               <label class="label">Quantity</label>
               <div class="control">
-                <input type="text" class="input" id="add-item-form-quantity" name="add-item-form-quantity" placeholder="Enter an amount..." autocomplete="off">
+                <input
+                  type="text"
+                  class="input"
+                  id="add-item-form-quantity"
+                  name="add-item-form-quantity"
+                  placeholder="Enter an amount..."
+                  autocomplete="off"
+                />
               </div>
             </div>
 
@@ -73,19 +93,23 @@
               <div class="control">
                 <div class="file">
                   <label class="file-label">
-
-                    <input type="file" class="file-input" id="add-item-form-image" name="add-item-form-image" name="resume" accept="image/*" autocomplete="off">
+                    <input
+                      type="file"
+                      class="file-input"
+                      id="add-item-form-image"
+                      name="add-item-form-image"
+                      name="resume"
+                      accept="image/*"
+                      autocomplete="off"
+                    />
 
                     <span class="file-cta">
                       <span class="file-icon">
                         <i class="fas fa-upload"></i>
                       </span>
 
-                      <span class="file-label">
-                        Choose an image...
-                      </span>
+                      <span class="file-label"> Choose an image... </span>
                     </span>
-
                   </label>
                 </div>
               </div>
@@ -94,30 +118,51 @@
             <div class="field">
               <label class="label">Location</label>
               <div class="select">
-                <select id="add-item-form-location" name="add-item-form-location"></select>
+                <select
+                  id="add-item-form-location"
+                  name="add-item-form-location"
+                ></select>
               </div>
             </div>
 
             <div class="field">
               <label class="label">Type</label>
               <div class="select">
-                <select id="add-item-form-type" name="add-item-form-type"></select>
+                <select
+                  id="add-item-form-type"
+                  name="add-item-form-type"
+                ></select>
               </div>
             </div>
 
             <div class="field is-grouped">
               <div class="control">
-                <button class="button is-link" type="submit" id="add-item-form-submit">Add Item</button>
+                <button
+                  class="button is-link"
+                  type="submit"
+                  id="add-item-form-submit"
+                >
+                  Add Item
+                </button>
               </div>
               <div class="control">
-                <button class="button is-link is-light" type="button" onclick="document.getElementById('add-item-modal').classList.remove('is-active');">Cancel</button>
+                <button
+                  class="button is-link is-light"
+                  type="button"
+                  onclick="document.getElementById('add-item-modal').classList.remove('is-active');"
+                >
+                  Cancel
+                </button>
               </div>
             </div>
-            
           </form>
         </div>
       </div>
-      <button class="modal-close is-large" aria-label="close" onclick="this.parentElement.classList.toggle('is-active')"></button>
+      <button
+        class="modal-close is-large"
+        aria-label="close"
+        onclick="this.parentElement.classList.toggle('is-active')"
+      ></button>
     </div>
 
     <div class="modal" id="add-project-modal">
@@ -156,35 +201,34 @@
         <th data-sorted="true" data-sorted-direction="ascending">
           Item Name
           <span class="icon sort-icon">
-            <img src="./assets/img/sort_top.svg">
-            <img src="./assets/img/sort_bottom.svg">
+            <img src="./assets/img/sort_top_opt.svg" />
+            <img src="./assets/img/sort_bottom_opt.svg" />
           </span>
         </th>
         <th data-sortable-type="numeric">
           Quantity
           <span class="icon sort-icon">
-            <img src="./assets/img/sort_top.svg">
-            <img src="./assets/img/sort_bottom.svg">
+            <img src="./assets/img/sort_top_opt.svg" />
+            <img src="./assets/img/sort_bottom_opt.svg" />
           </span>
         </th>
         <th>
           Location
           <span class="icon sort-icon">
-            <img src="./assets/img/sort_top.svg">
-            <img src="./assets/img/sort_bottom.svg">
+            <img src="./assets/img/sort_top_opt.svg" />
+            <img src="./assets/img/sort_bottom_opt.svg" />
           </span>
         </th>
         <th>
           Type
           <span class="icon sort-icon">
-            <img src="./assets/img/sort_top.svg">
-            <img src="./assets/img/sort_bottom.svg">
+            <img src="./assets/img/sort_top_opt.svg" />
+            <img src="./assets/img/sort_bottom_opt.svg" />
           </span>
         </th>
       </thead>
 
       <tbody id="inventory-data"></tbody>
-
     </table>
 
     <script src="assets/js/styling.js" async></script>
