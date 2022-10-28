@@ -1,15 +1,20 @@
 async function addNewItemToDatabase(_name, _image, _quantity, _location, _type) {
-    await _supabase
+    return uploadImage(_image,_name).then(() => 
+        _supabase
         .from('items')
         .insert([
             { 
-                name: _name, 
-                image: _image,
+                name: _name,
                 totalQuantity: _quantity,
                 location: _location,
                 itemType: _type
             }
         ])
+    ).catch((err) => console.warn(err))
+}
+
+async function uploadImage(_image, _item_id) {
+    return _supabase.storage.from("images").upload("items/"+_item_id+".jpg", _image)
 }
 
 async function addNewProject(_name) {
