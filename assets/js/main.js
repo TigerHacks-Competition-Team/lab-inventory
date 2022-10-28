@@ -93,7 +93,7 @@ function addItemFormOnSubmit() {
     reader.addEventListener("load", async () => {
         await addNewItemToDatabase(
             document.getElementById("add-item-form-name").value,
-            reader.result,                                      // Image encoded as a base64 string
+            file,                                      // Image encoded as a base64 string
             parseInt(document.getElementById("add-item-form-quantity").value),
             document.getElementById("add-item-form-location").value,
             document.getElementById("add-item-form-type").value
