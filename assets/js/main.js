@@ -52,7 +52,7 @@ window.onload = async () => {
     }
 }
 
-function addItemFormOnSubmit() {
+async function addItemFormOnSubmit() {
 
     // clear old invalidation (if any)
     clearInvalidation(document.getElementById("add-item-form-name"));
@@ -75,13 +75,9 @@ function addItemFormOnSubmit() {
         invalid = true;
     }
 
-    let file = document.getElementById("add-item-form-image").files[0];
-    let reader;
+    let imageFile = document.getElementById("add-item-form-image").files[0];
     
-    if (file) {
-        reader = new FileReader();
-        reader.readAsDataURL(file);
-    } else {
+    if (!imageFile) {
         // if no file is uploaded, error out and don't submit form
         document.getElementById("add-item-form-image").parentElement.parentElement.classList.add("is-danger");
         invalid = true;
@@ -89,20 +85,17 @@ function addItemFormOnSubmit() {
 
     if (invalid) { return; }
 
-    // Add item to database after FileReader has finished     
-    reader.addEventListener("load", async () => {
-        await addNewItemToDatabase(
-            document.getElementById("add-item-form-name").value,
-            file,                                      // Image encoded as a base64 string
-            parseInt(document.getElementById("add-item-form-quantity").value),
-            document.getElementById("add-item-form-location").value,
-            document.getElementById("add-item-form-type").value
-        );
+    await addNewItemToDatabase(
+        document.getElementById("add-item-form-name").value,
+        imageFile,                                      
+        parseInt(document.getElementById("add-item-form-quantity").value),
+        document.getElementById("add-item-form-location").value,
+        document.getElementById("add-item-form-type").value
+    );
 
-        // Update table after adding new element
-        updateTableFromServer()
-        document.getElementById("add-item-modal").classList.remove("is-active")
-    });
+    // Update table after adding new element
+    updateTableFromServer()
+    document.getElementById("add-item-modal").classList.remove("is-active")
     
 }
 

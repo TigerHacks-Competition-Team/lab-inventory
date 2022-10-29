@@ -1,10 +1,12 @@
 async function addNewItemToDatabase(_name, _image, _quantity, _location, _type) {
-    return uploadImage(_image,_name).then(() => 
+    let fileExtension = _image.type.split("/")[1];
+    return uploadImage(_image, _name, fileExtension).then(() => 
         _supabase
         .from('items')
         .insert([
             { 
                 name: _name,
+                image: `items/${_name}.${fileExtension}`,
                 totalQuantity: _quantity,
                 location: _location,
                 itemType: _type
@@ -13,8 +15,15 @@ async function addNewItemToDatabase(_name, _image, _quantity, _location, _type) 
     ).catch((err) => console.warn(err))
 }
 
-async function uploadImage(_image, _item_id) {
-    return _supabase.storage.from("images").upload("items/"+_item_id+".jpg", _image)
+async function uploadImage(_image, _item_id, _extension) {
+    return _supabase.storage.from("images").upload(`items/${_item_id}.${_extension}`, _image)
+}
+
+async function downloadImage(imagePath) {
+    if (imagePath === null || !imagePath.match(/items\//)) {
+        return _supabase.storage.from('images').download('items/default.png');
+    }
+    return _supabase.storage.from('images').download(imagePath);
 }
 
 async function addNewProject(_name) {
@@ -139,21 +148,36 @@ async function updateTableFromServer() {
         let name = document.createElement("td"),
             quantity = document.createElement("td"),
             location = document.createElement("td"),
-            type = document.createElement('td');
+            type = document.createElement('td'),
+            image = document.createElement('td'),
+            _image = document.createElement('img');
 
-        let _location = getObjectFromId('locations', item.location).then(function(data) {
+        getObjectFromId('locations', item.location).then((data) => {
             location.innerHTML = data[0].locationInLab;
         });
 
-        let _type = getObjectFromId('itemTypes', item.itemType).then(function(data) {
+        getObjectFromId('itemTypes', item.itemType).then((data) => {
             type.innerHTML = data[0].name;
         })
+
+        downloadImage(item.image).then((data) => {
+            let reader = new FileReader();
+            reader.readAsDataURL(data.data);
+            reader.onloadend = function() {
+                _image.src = reader.result;
+            }
+        })
+
+        _image.width = 128;
+        _image.height = 128;
+        image.appendChild(_image);
 
         // add server data to table data elements
         name.innerHTML = item.name;
         quantity.innerHTML = item.totalQuantity;
 
         // append table data to table row
+        tableRow.appendChild(image);
         tableRow.appendChild(name);
         tableRow.appendChild(quantity);
         tableRow.appendChild(location);
