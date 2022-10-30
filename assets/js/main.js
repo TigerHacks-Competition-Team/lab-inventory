@@ -30,6 +30,7 @@ window.onload = async () => {
             event.target.parentElement.classList.add("is-selected");
             contextMenu.selected = event.target.parentElement.rowIndex;
 
+            contextMenu.dataset.id = row.dataset.id;
             contextMenu.classList.remove("is-hidden");
             contextMenu.style.left = event.pageX + "px";
             contextMenu.style.top = event.pageY + "px";
@@ -43,6 +44,7 @@ window.onload = async () => {
             document.getElementById("inventory-data").children[contextMenu.selected - 1].classList.remove("is-selected");
         }
         contextMenu.classList.add("is-hidden");
+        contextMenu.dataset.id = "";
     }, false)
 
     for (const button of document.getElementsByClassName("ctx-menu-button")) {
@@ -205,4 +207,22 @@ function clearInvalidation(input) {
     let icon = input.parentElement.querySelector(".icon.is-small.is-right");
     if (icon) { icon.remove(); }
 
+}
+
+async function removeItemModalOpen() {
+    let id = document.getElementById('context-menu').dataset.id;
+    document.getElementById('remove-item-warning-modal').dataset.id = id;
+    document.getElementById('remove-item-warning-modal').classList.toggle('is-active');
+    document.getElementById('remove-item-warning-text').innerHTML = "Loading...";
+    
+    getObjectFromId('items', id).then((data) => {
+        document.getElementById('remove-item-warning-text').innerHTML = `Do you want to remove ${data[0].name}?`;
+    })
+}
+
+async function removeItem() {
+    document.getElementById('remove-item-warning-modal').classList.toggle('is-active');
+    await removeItemFromDatabase(document.getElementById('remove-item-warning-modal').dataset.id);
+    await updateTableFromServer();
+    document.getElementById('remove-item-warning-modal').dataset.id = "";
 }

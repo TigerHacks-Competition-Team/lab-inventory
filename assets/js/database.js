@@ -103,6 +103,10 @@ async function getObjectFromId(table, id) {
     return data;
 }
 
+async function removeItemFromDatabase(id) {
+    return _supabase.from('items').delete().eq('id', id);
+}
+
 async function addProjectFormUpdateDropLists() {
     document.getElementById("add-project-modal").classList.toggle("is-active");
 }

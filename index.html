@@ -13,9 +13,9 @@
 
     <div id="context-menu" class="dropdown-menu is-hidden">
       <div class="dropdown-content">
-        <a class="dropdown-item ctx-menu-button" onclick="viewItemProfile()">View</a>
+        <a class="dropdown-item ctx-menu-button">View</a>
         <a class="dropdown-item ctx-menu-button">Checkout</a>
-        <a class="dropdown-item ctx-menu-button">Remove</a>
+        <a class="dropdown-item ctx-menu-button" onclick="removeItemModalOpen()">Remove</a>
       </div>
     </div>
 
@@ -148,6 +148,26 @@
         </div>
       </div>
       <button class="modal-close is-large" aria-label="close" onclick="this.parentElement.classList.toggle('is-active')"></button>
+    </div>
+
+    <div class="modal" id="remove-item-warning-modal">
+      <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active')"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title"> Remove Item </h2>
+          <span id="remove-item-warning-text"></span>
+
+          <div class="field is-grouped">
+            <div class="control">
+              <button onclick="removeItem()" id="remove-item-button" class="button is-danger" type="button"> Remove </button><br>
+            </div>
+            <div class="control">
+              <button onclick="document.getElementById('remove-item-warning-modal').classList.remove('is-active')"
+                      class="button is-link is-light" type="button"> Cancel </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     
     <table class="table is-bordered is-striped is-hoverable is-fullwidth" id="inventory-list" data-sortable>
