@@ -1,0 +1,17 @@
+
+// fix selected table borders
+tr.is-selected {
+    td, th {
+        border-color: $table-cell-border-color !important;
+    }
+}
+
+// light button background color
+.button.is-light {
+    &.is-primary {
+        background-color: rgba(findLightColor($primary), 0.1) !important;
+    }
+    &.is-link {
+        background-color: rgba(findLightColor($link), 0.1) !important;
+    }
+}

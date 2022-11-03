@@ -1,0 +1,149 @@
+@charset "utf-8";
+
+// required for sass compiler to be able to use variables, as well as
+// intellisense, since it's just variables it should be stripped away when
+// compiling anyways so it won't make a difference
+// @import "../../modules/bulma/sass/utilities/_all.sass";
+
+
+// --- UTILITY ---
+
+// takes a color and returns a CSS filter that can turn black into that color
+// https://stackoverflow.com/a/66365650
+@mixin recolor($color: #000, $opacity: 1) {
+    $r: calc(red($color) / 255);
+    $g: calc(green($color) / 255);
+    $b: calc(blue($color) / 255);
+    $a: $opacity;
+  
+    // grayscale fallback if SVG from data url is not supported
+    $lightness: lightness($color);
+    filter: saturate(0%) brightness(0%) invert($lightness) opacity($opacity);
+  
+    // color filter
+    $svg-filter-id: "recolor";
+    filter: url('data:image/svg+xml;utf8,\
+      <svg xmlns="http://www.w3.org/2000/svg">\
+        <filter id="#{$svg-filter-id}" color-interpolation-filters="sRGB">\
+          <feColorMatrix type="matrix" values="\
+            0 0 0 0 #{$r}\
+            0 0 0 0 #{$g}\
+            0 0 0 0 #{$b}\
+            0 0 0 #{$a} 0\
+          "/>\
+        </filter>\
+      </svg>\
+      ##{$svg-filter-id}');
+}
+
+
+// --- MAIN PAGE ---
+
+* {
+    // set transition for theme changes, if a specific class or element needs
+    // to override it, it can be done for just that class/element
+    transition: background-color 0.2s, color 0.2s;
+}
+
+body {
+    // offset everything slightly
+    margin: 1rem;
+}
+
+// spacing for top buttons
+#top-buttons {
+    margin-bottom: 1em;
+}
+
+// top theme button
+#theme-button {
+    float: right;
+}
+
+// context menu
+#context-menu {
+    z-index: 100;
+    position: absolute;
+    display: block;
+}
+
+// --- TABLE ---
+
+// clickable headers
+th {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: $table-row-hover-background-color !important;
+    }
+}
+
+// sort icons
+.sort-icon {
+    display: flex;
+    flex-direction: column;
+
+    float: right;
+
+    img {
+        width: 1em;
+        height: 0.4em;
+        // color the black to the border color
+        filter: invert(lightness($border)); 
+    
+        // add spacing in the middle 
+        &:first-child {
+            margin-bottom: 0.1em;
+        }
+    }
+}
+
+// sort icon colors
+th[data-sorted="true"] {
+    
+    // descending
+    &[data-sorted-direction="descending"] {
+        
+        &:not([data-sortable-type="numeric"]) {
+            img:first-child {
+                @include recolor($primary)
+            }
+        }
+        
+        // for numeric columns, the data-sorted-direction is reversed for some
+        // reason
+        &[data-sortable-type="numeric"] {
+            img:last-child {
+                @include recolor($primary)
+            }
+        }
+        
+        
+    }
+
+    // ascending
+    &[data-sorted-direction="ascending"] {
+
+        &:not([data-sortable-type="numeric"]) {
+            img:last-child {
+                @include recolor($primary)
+            }
+        }
+        
+        // for numeric columns, the data-sorted-direction is reversed for some
+        // reason
+        &[data-sortable-type="numeric"] {
+            img:first-child {
+                @include recolor($primary)
+            }
+        }
+    }
+    
+}

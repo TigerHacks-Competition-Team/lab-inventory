@@ -5,8 +5,8 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://unpkg.com/fontawesome-free@1.0.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="assets/css/styles.css" id="override-styles">
+    <script src="assets/js/styling.js" async></script>
+    <link rel="stylesheet" href="assets/css/dark/dark.css" id="theme" data-theme="dark">
   </head>
 
   <body>
@@ -27,24 +27,28 @@
     
     <h2 class="title">Inventory</h2>
 
-    <button class="button" id="theme-button">
-      <span class="icon">
-        <i class="fas fa-sun" id="theme-icon"></i>
-      </span>
-    </button>
+    <div id="top-buttons">
     
-    <button class="button is-link" id="add-item-button" onclick="addItemFormUpdateDropLists()">
-      <span>Add Item</span>
-      <span class="icon is-small">
-        <i class="fas fa-plus"></i>
-      </span>
-    </button>
-    <button class="button is-link" id="add-item-button" onclick="addProjectFormUpdateDropLists()">
-      <span>Add Project</span>
-      <span class="icon is-small">
-        <i class="fas fa-plus"></i>
-      </span>
-    </button>
+      <button class="button" id="theme-button">
+        <span class="icon">
+          <i class="fas fa-sun" id="theme-icon"></i>
+        </span>
+      </button>
+      
+      <button class="button is-primary" id="add-item-button" onclick="addItemFormUpdateDropLists()">
+        <span>Add Item</span>
+        <span class="icon is-small">
+          <i class="fas fa-plus"></i>
+        </span>
+      </button>
+      <button class="button is-primary" id="add-item-button" onclick="addProjectFormUpdateDropLists()">
+        <span>Add Project</span>
+        <span class="icon is-small">
+          <i class="fas fa-plus"></i>
+        </span>
+      </button>
+    
+    </div>
 
     <div class="modal" id="add-item-modal">
       <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active')"></div>
@@ -210,7 +214,6 @@
 
     </table>
 
-    <script src="assets/js/styling.js" async></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="assets/js/database.js" defer></script>
     <script src="assets/js/utils.js" defer></script>
