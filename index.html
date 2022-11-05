@@ -174,7 +174,12 @@
       </div>
     </div>
     
-    <table class="table is-bordered is-striped is-hoverable is-fullwidth" id="inventory-list" data-sortable>
+    <div id="loading" class="modal">
+        <img src="assets/img/loading.gif" style="width: 256px; height: 256px">
+        <h2 class="title" id="loading-text"> Loading... </h2>
+    </div>
+
+    <table class="table is-bordered is-striped is-hoverable is-fullwidth" id="inventory-list" style="display: none;" data-sortable>
       
       <thead>
         <th>

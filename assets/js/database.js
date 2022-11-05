@@ -113,6 +113,11 @@ async function addProjectFormUpdateDropLists() {
 
 // Gets items from database and puts them into table
 async function updateTableFromServer() {
+    //Loading animation
+    let loading = document.getElementById('loading');
+    loading.classList.toggle('is-active');
+    document.getElementById('inventory-list').style = "display: none";
+
     // Get items from database
     const {error, data} = await _supabase
         .from('items')
@@ -142,7 +147,7 @@ async function updateTableFromServer() {
     }
 
     // If no errors are present, loop through each item
-    for (const item of data) {
+    for(const item of data) {
         // create table row and append it to the main table
         let tableRow = document.createElement("tr");
         tableRow.className = "inventory-list-row";
@@ -156,15 +161,15 @@ async function updateTableFromServer() {
             image = document.createElement('td'),
             _image = document.createElement('img');
 
-        getObjectFromId('locations', item.location).then((data) => {
+        await getObjectFromId('locations', item.location).then((data) => {
             location.innerHTML = data[0].locationInLab;
         });
 
-        getObjectFromId('itemTypes', item.itemType).then((data) => {
+        await getObjectFromId('itemTypes', item.itemType).then((data) => {
             type.innerHTML = data[0].name;
         })
 
-        downloadImage(item.image).then((data) => {
+        await downloadImage(item.image).then((data) => {
             let reader = new FileReader();
             reader.readAsDataURL(data.data);
             reader.onloadend = function() {
@@ -203,4 +208,7 @@ async function updateTableFromServer() {
         }
         
     }
+
+    loading.classList.toggle('is-active');
+    document.getElementById('inventory-list').style = "display: visible;";
 }
