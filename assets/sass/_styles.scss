@@ -147,3 +147,15 @@ th[data-sorted="true"] {
     }
     
 }
+
+.flex {
+    display: flex;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.col {
+    flex-direction: column;
+}

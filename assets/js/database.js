@@ -150,6 +150,7 @@ async function updateTableFromServer() {
     for(const item of data) {
         // create table row and append it to the main table
         let tableRow = document.createElement("tr");
+        tableRow.onclick = () => showViewItem(item)
         tableRow.className = "inventory-list-row";
         tableRow.dataset.id = item.id;
         

@@ -226,3 +226,17 @@ async function removeItem() {
     await updateTableFromServer();
     document.getElementById('remove-item-warning-modal').dataset.id = "";
 }
+
+async function showViewItem(item) {
+    console.log("[main.js showViewItem] showing item info ",item.name)
+    document.getElementById("view-item-modal").classList.toggle("is-active");
+    document.getElementById("view-item-title").innerText = item.name
+    await downloadImage(item.image).then((data) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(data.data);
+        reader.onloadend = function() {
+            console.log("got image")
+            document.getElementById("view-item-img").src.src = reader.result;
+        }
+    })
+}
