@@ -79,7 +79,7 @@
                   <label class="file-label">
 
                     <input type="file" class="file-input" id="add-item-form-image" name="add-item-form-image" name="resume" accept="image/*" autocomplete="off">
-
+                    
                     <span class="file-cta">
                       <span class="file-icon">
                         <i class="fas fa-upload"></i>
@@ -91,6 +91,7 @@
                     </span>
 
                   </label>
+                  <button class="button is-hidden" id="file-crop-image" type="button" onclick="openCropMenu()">Crop Image</button>
                 </div>
               </div>
             </div>
@@ -122,6 +123,20 @@
         </div>
       </div>
       <button class="modal-close is-large" aria-label="close" onclick="this.parentElement.classList.toggle('is-active')"></button>
+    </div>
+
+    <div class="modal" id="crop-image-modal">
+      <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active')"></div>
+      <div class="modal-content">
+        <div class="box">
+
+          <h2 class="title">Crop Image</h2>
+
+          <p id="crop-image-file-name"></p>
+          <canvas id="crop-image-preview" width="512" height="512"></canvas>
+          <p id="crop-image-original-size"></p>
+        </div>
+      </div>
     </div>
 
     <div class="modal" id="add-project-modal">

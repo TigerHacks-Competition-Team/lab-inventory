@@ -146,6 +146,8 @@ document.getElementById("add-item-form-image").addEventListener("change", e => {
 
     e.target.parentElement.parentElement.classList.add("has-name");
     
+    document.getElementById('file-crop-image').classList.remove('is-hidden');
+    
     // clear invalidation (if it was invalid before)
     clearInvalidation(e.target);
 });
@@ -225,4 +227,21 @@ async function removeItem() {
     await removeItemFromDatabase(document.getElementById('remove-item-warning-modal').dataset.id);
     await updateTableFromServer();
     document.getElementById('remove-item-warning-modal').dataset.id = "";
+}
+
+function openCropMenu() {
+    document.getElementById('crop-image-modal').classList.toggle('is-active');
+    const currentImageInForm = document.getElementById('add-item-form-image').files[0];
+    document.getElementById('crop-image-file-name').innerHTML = currentImageInForm.name;
+
+    let img = new Image();
+    img.src = window.URL.createObjectURL(currentImageInForm);
+    img.onload = () => {
+        document.getElementById('crop-image-original-size').innerHTML = `Original dimensions: ${img.naturalWidth} x ${img.naturalHeight}`;
+        const canvas = document.getElementById('crop-image-preview'),
+              ctx = canvas.getContext('2d');
+
+        ctx.drawImage(img, 0, 0, 512, 512 * img.naturalHeight / img.naturalWidth);
+    }
+
 }
