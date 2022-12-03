@@ -228,7 +228,6 @@ async function removeItem() {
 }
 
 async function showViewItem(item) {
-    console.log("[main.js showViewItem] showing item info ",item.name)
     document.getElementById("view-item-modal").classList.toggle("is-active");
     document.getElementById("view-item-title").innerText = item.name
     await downloadImage(item.image).then((data) => {
@@ -236,7 +235,17 @@ async function showViewItem(item) {
         reader.readAsDataURL(data.data);
         reader.onloadend = function() {
             console.log("got image")
-            document.getElementById("view-item-img").src.src = reader.result;
+            document.getElementById("view-item-img").src = reader.result;
         }
     })
+    let dataDiv = document.getElementById("view-item-data")
+    let type = document.createElement("p")
+    type.innerText = `Type: ${item.itemTypes.name}`
+    let location = document.createElement("p")
+    location.innerHTML = `Location: <strong>${item.locations.storageType}</strong> called <strong>${item.locations.storageName}</strong> in <strong>${item.locations.locationInLab}</strong>`
+    let quantity = document.createElement("p")
+    quantity.innerHTML = `<strong>${item.totalQuantity}</strong>/${item.totalQuantity} available, <strong>${item.totalQuantity}</strong> in use`
+    dataDiv.appendChild(type)
+    dataDiv.appendChild(location)
+    dataDiv.appendChild(quantity)
 }
