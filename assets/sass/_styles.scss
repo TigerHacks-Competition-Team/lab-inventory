@@ -173,10 +173,19 @@ th[data-sorted="true"] {
     
 }
 
+.flex {
+    display: flex;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.col {
+    flex-direction: column;
+}
 // old firefox style tabs
 .tabs {
-
-    
 
     border-bottom: 1px solid $border;
 

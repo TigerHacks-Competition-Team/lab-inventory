@@ -238,3 +238,26 @@ async function removeItem() {
     await updateTableFromServer();
     document.getElementById('remove-item-warning-modal').dataset.id = "";
 }
+
+async function showViewItem(item) {
+    document.getElementById("view-item-modal").classList.toggle("is-active");
+    document.getElementById("view-item-title").innerText = item.name
+    await downloadImage(item.image).then((data) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(data.data);
+        reader.onloadend = function() {
+            console.log("got image")
+            document.getElementById("view-item-img").src = reader.result;
+        }
+    })
+    let dataDiv = document.getElementById("view-item-data")
+    let type = document.createElement("p")
+    type.innerText = `Type: ${item.itemTypes.name}`
+    let location = document.createElement("p")
+    location.innerHTML = `Location: <strong>${item.locations.storageType}</strong> called <strong>${item.locations.storageName}</strong> in <strong>${item.locations.locationInLab}</strong>`
+    let quantity = document.createElement("p")
+    quantity.innerHTML = `<strong>${item.totalQuantity}</strong>/${item.totalQuantity} available, <strong>${item.totalQuantity}</strong> in use`
+    dataDiv.appendChild(type)
+    dataDiv.appendChild(location)
+    dataDiv.appendChild(quantity)
+}

@@ -121,8 +121,8 @@ async function updateTableFromServer() {
     // Get items from database
     const {error, data} = await _supabase
         .from('items')
-        .select()
-
+        .select('name, totalQuantity, image, checkouts, locations ( storageName, storageType, locationInLab ), itemTypes ( name )')
+    console.log(JSON.stringify(data[0]))
     // Check for errors
     if (error) {
         console.error(`Error when fetching server entries, "${error}"`)
@@ -150,6 +150,7 @@ async function updateTableFromServer() {
     for(const item of data) {
         // create table row and append it to the main table
         let tableRow = document.createElement("tr");
+        tableRow.onclick = () => showViewItem(item)
         tableRow.className = "inventory-list-row";
         tableRow.dataset.id = item.id;
         
@@ -161,13 +162,9 @@ async function updateTableFromServer() {
             image = document.createElement('td'),
             _image = document.createElement('img');
 
-        await getObjectFromId('locations', item.location).then((data) => {
-            location.innerHTML = data[0].locationInLab;
-        });
-
-        await getObjectFromId('itemTypes', item.itemType).then((data) => {
-            type.innerHTML = data[0].name;
-        })
+        
+        location.innerHTML = item.locations.locationInLab;
+        type.innerHTML = item.itemTypes.name;
 
         await downloadImage(item.image).then((data) => {
             let reader = new FileReader();
