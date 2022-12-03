@@ -11,6 +11,18 @@ document.getElementById("add-project-form").addEventListener("submit", (event) =
     event.preventDefault();
 });
 
+// event listeners to switch tabs
+const tabList = document.querySelector("#tab-bar ul");
+tabList.querySelectorAll("#tab-bar li").forEach(elem => {
+    elem.addEventListener("click", e => {
+        tabList.querySelectorAll("li").forEach(tab => {
+            tab.classList.remove("is-active");
+        })
+
+        e.currentTarget.classList.add("is-active")
+    })
+});
+
 window.onload = async () => {
     // Fetch server data on page load
     await updateTableFromServer()

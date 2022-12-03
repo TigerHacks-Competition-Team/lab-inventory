@@ -45,9 +45,9 @@
     transition: background-color 0.2s, color 0.2s;
 }
 
-body {
+#main {
     // offset everything slightly
-    margin: 1rem;
+    padding: 0 1rem 1rem 1rem;
 }
 
 // spacing for top buttons
@@ -55,10 +55,35 @@ body {
     margin-bottom: 1em;
 }
 
-// top theme button
-#theme-button {
-    float: right;
+// tab bar buttons
+.tab-button {
+
+    width: 3rem;
+
+    &:hover {
+        background-color: $background;
+    }
+
+    &#theme-button {
+        position: absolute;
+        right: 0;
+
+        border: none;
+        border-left: 1px solid $border;
+
+        // for some reason, just setting the background color covers up the border
+        // on the bottom, so just moving the entire background up by 1px and moving
+        // the icon 'up by -1px' / down by 1px fixes it
+        &:hover {
+            margin-bottom: 1px;
+
+            .icon {
+                margin-bottom: -1px;
+            }
+        }
+    }
 }
+
 
 // context menu
 #context-menu {
@@ -146,4 +171,50 @@ th[data-sorted="true"] {
         }
     }
     
+}
+
+// old firefox style tabs
+.tabs {
+
+    
+
+    border-bottom: 1px solid $border;
+
+    ul {
+        border: none;
+    }
+    
+    a {
+        border-right: 1px solid $border;
+        border-bottom: none;
+
+        // remove background-color hover transition
+        transition: color 0.2s;
+
+        &:hover {
+            background-color: $background;
+        }
+    }
+
+    // active tabs
+    li.is-active {
+        position: relative;
+
+        // line on top, using a pseudo-element so that it doesn't push the text
+        // down
+        ::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: $primary;
+        }
+
+        a {
+            color: $primary;
+        }
+
+    }
 }
