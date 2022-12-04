@@ -51,7 +51,7 @@
     </div>
 
     <div class="modal" id="add-item-modal">
-      <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active')"></div>
+      <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active'); clearAddItemMenu();"></div>
       <div class="modal-content">
         <div class="box">
           <form id="add-item-form" onsubmit="addItemFormOnSubmit()">
@@ -115,14 +115,14 @@
                 <button class="button is-link" type="submit" id="add-item-form-submit">Add Item</button>
               </div>
               <div class="control">
-                <button class="button is-link is-light" type="button" onclick="document.getElementById('add-item-modal').classList.remove('is-active');">Cancel</button>
+                <button class="button is-link is-light" type="button" onclick="document.getElementById('add-item-modal').classList.remove('is-active'); clearAddItemMenu();">Cancel</button>
               </div>
             </div>
             
           </form>
         </div>
       </div>
-      <button class="modal-close is-large" aria-label="close" onclick="this.parentElement.classList.toggle('is-active')"></button>
+      <button class="modal-close is-large" aria-label="close" onclick="this.parentElement.classList.toggle('is-active'); clearAddItemMenu();"></button>
     </div>
 
     <div class="modal" id="crop-image-modal">
@@ -133,8 +133,9 @@
           <h2 class="title">Crop Image</h2>
 
           <p id="crop-image-file-name"></p>
-          <canvas id="crop-image-preview" width="512" height="512"></canvas>
+          <canvas id="crop-image-preview" style="width: 100%; height: 100%"></canvas>
           <p id="crop-image-original-size"></p>
+
         </div>
       </div>
     </div>
@@ -237,6 +238,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="assets/js/database.js" defer></script>
     <script src="assets/js/utils.js" defer></script>
+    <script src="assets/js/add-item-menu.js" defer></script>
+    <script src="assets/js/crop-menu.js" defer></script>
+    <script src="assets/js/project-menu.js" defer></script>
     <script src="assets/js/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/gh/HubSpot/sortable/js/sortable.min.js" defer></script>
   </body>
