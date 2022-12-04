@@ -253,10 +253,13 @@ async function showViewItem(item) {
     let dataDiv = document.getElementById("view-item-data")
     let type = document.createElement("p")
     type.innerText = `Type: ${item.itemTypes.name}`
+    type.style.paddingLeft = "16px";
     let location = document.createElement("p")
     location.innerHTML = `Location: <strong>${item.locations.storageType}</strong> called <strong>${item.locations.storageName}</strong> in <strong>${item.locations.locationInLab}</strong>`
+    location.style.paddingLeft = "16px";
     let quantity = document.createElement("p")
     quantity.innerHTML = `<strong>${item.totalQuantity}</strong>/${item.totalQuantity} available, <strong>${item.totalQuantity}</strong> in use`
+    quantity.style.paddingLeft = "16px";
     dataDiv.appendChild(type)
     dataDiv.appendChild(location)
     dataDiv.appendChild(quantity)
