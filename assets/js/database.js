@@ -150,7 +150,6 @@ async function updateTableFromServer() {
     for(const item of data) {
         // create table row and append it to the main table
         let tableRow = document.createElement("tr");
-        tableRow.onclick = () => showViewItem(item)
         tableRow.className = "inventory-list-row";
         tableRow.dataset.id = item.id;
         
@@ -171,6 +170,7 @@ async function updateTableFromServer() {
             reader.readAsDataURL(data.data);
             reader.onloadend = function() {
                 _image.src = reader.result;
+                item.imageData = reader.result
             }
         })
 
@@ -203,6 +203,8 @@ async function updateTableFromServer() {
         if (!inserted) {
             table.appendChild(tableRow);
         }
+
+        tableRow.onclick = () => showViewItem(item)
         
     }
 
