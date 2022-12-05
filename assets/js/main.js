@@ -1,14 +1,12 @@
 const { createClient } = supabase,
       _supabase = createClient('https://apdqcjlnovlnwziquaye.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFwZHFjamxub3Zsbnd6aXF1YXllIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ1Njg5NDAsImV4cCI6MTk4MDE0NDk0MH0.qESxhTdMvDRuGyNhC9C65S3Syq4iSIGMh5KEjTBG6K0');
 
-var items = [];
-
 // Prevent form from submitting when the Enter key is pressed
 document.getElementById("add-item-form").addEventListener("submit", (e) => { e.preventDefault(); });
 document.getElementById("add-project-form").addEventListener("submit", (e) => { e.preventDefault(); });
 
 // 12/4/22 - Anh: move different menu code to their respective .js files
-// new files: add-item-menu.js, crop-menu.js, project-menu.js
+// new files: add-item-menu.js, crop-image.js, project-menu.js
 // main.js is getting too long
 
 window.onload = async () => {
