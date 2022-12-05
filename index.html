@@ -12,25 +12,21 @@
   <body>
 
     <div id="tab-bar" class="tabs">
-      <ul>
-        <li class="is-active"><a>All Items</a></li>
-        <li><a>Project 1</a></li>
-        <li><a>Project 2</a></li>
-        <li><a>Project 3</a></li>
-        <a class="tab-button" id="add-item-button" onclick="addItemFormUpdateDropLists()">
-          <span class="icon">
-            <i class="fas fa-plus"></i>
-          </span>
-        </a>
-        
-        <a class="tab-button" id="theme-button">
-          <span class="icon">
-            <i class="fas fa-sun" id="theme-icon"></i>
-          </span>
-        </a>
+      <a class="tab-button" id="add-item-button" onclick="addItemFormUpdateDropLists()">
+        <span class="icon">
+          <i class="fas fa-plus"></i>
+        </span>
+      </a>
+
+      <ul id="projects">
+        <li id="all-items" class="is-active"><a>All Items</a></li>
       </ul>
 
-      
+      <a class="tab-button" id="theme-button">
+        <span class="icon">
+          <i class="fas fa-sun" id="theme-icon"></i>
+        </span>
+      </a>
     </div>
 
     <div id="context-menu" class="dropdown-menu is-hidden">

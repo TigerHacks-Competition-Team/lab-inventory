@@ -2,6 +2,7 @@ const { createClient } = supabase,
       _supabase = createClient('https://apdqcjlnovlnwziquaye.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFwZHFjamxub3Zsbnd6aXF1YXllIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ1Njg5NDAsImV4cCI6MTk4MDE0NDk0MH0.qESxhTdMvDRuGyNhC9C65S3Syq4iSIGMh5KEjTBG6K0');
 
 var items = [];
+var selectedProject = "All Items";
 
 // Prevent form from submitting when the Enter key is pressed
 document.getElementById("add-item-form").addEventListener("submit", (event) => {
