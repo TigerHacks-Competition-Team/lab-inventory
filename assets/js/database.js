@@ -112,8 +112,9 @@ async function addProjectFormUpdateDropLists() {
 }
 
 function selectProject(projectName) {
+    document.getElementById(selectedProject).className = "project-tab";
     selectedProject = projectName;
-    document.getElementById(projectName).className = "project-tab is-active";
+    document.getElementById(selectedProject).className = "project-tab is-active";
 }
 
 // Gets items from database and puts them into table
@@ -148,8 +149,8 @@ async function updateTableFromServer() {
     let table = document.getElementById("inventory-data"),
         tableIndex = table.children.length;
     
-    // Get all project tab elements and length for removing elements
-    let projectTabs = document.querySelectorAll(".project-tab"),
+    // Get all project tab elements and length for removing elements, NodeListOf type does not have filter, so [...] converts it to an array
+    let projectTabs = [...document.querySelectorAll(".project-tab")].filter(a => a.id != "All Items"),
         projectTabIndex = projectTabs.length
 
     // Remove all elements from table, we do it like this instead of a "for of" loop because
@@ -263,7 +264,7 @@ async function updateTableFromServer() {
 
         // Click handler
         projectTabLinkItem.onclick = () => {
-            selectProject(item.name)
+            selectProject(projectTabListItem.id)
         }
 
         // Get the projects tab and insert list item
@@ -273,9 +274,9 @@ async function updateTableFromServer() {
 
     // Select "All Items" if the selected one was not found
     if (foundSelected) {
-        document.getElementById("all-items").removeAttribute("class")
+        document.getElementById("All Items").removeAttribute("class")
     } else {
-        document.getElementById("all-items").className = "is-active"
+        document.getElementById("All Items").className = "is-active"
     }
 
     loading.classList.toggle('is-active');
