@@ -2,7 +2,7 @@ const { createClient } = supabase,
       _supabase = createClient('https://apdqcjlnovlnwziquaye.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFwZHFjamxub3Zsbnd6aXF1YXllIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ1Njg5NDAsImV4cCI6MTk4MDE0NDk0MH0.qESxhTdMvDRuGyNhC9C65S3Syq4iSIGMh5KEjTBG6K0');
 
 var items = [];
-var selectedProject = "All Items";
+var selectedProjectID = "All Items";
 
 // Prevent form from submitting when the Enter key is pressed
 document.getElementById("add-item-form").addEventListener("submit", (event) => {
@@ -28,36 +28,15 @@ window.onload = async () => {
     // Fetch server data on page load
     await updateTableFromServer()
 
-    // Context menu logic
-    for (const row of document.getElementsByClassName("inventory-list-row")) {
-        row.addEventListener("contextmenu", (event) => {
-            event.preventDefault();
-
-            let contextMenu = document.getElementById("context-menu");
-
-            // remove selection on old row
-            if (contextMenu.selected) {
-                document.getElementById("inventory-data").children[contextMenu.selected - 1].classList.remove("is-selected");
-            }
-
-            event.target.parentElement.classList.add("is-selected");
-            contextMenu.selected = event.target.parentElement.rowIndex;
-
-            contextMenu.dataset.id = row.dataset.id;
-            contextMenu.classList.remove("is-hidden");
-            contextMenu.style.left = event.pageX + "px";
-            contextMenu.style.top = event.pageY + "px";
-        }, false)
-    };
-
     window.addEventListener("click", (event) => {
         let contextMenu = document.getElementById("context-menu");
         
         if (contextMenu.selected) {
-            document.getElementById("inventory-data").children[contextMenu.selected - 1].classList.remove("is-selected");
+            document.getElementById(contextMenu.dataset.id).classList.remove("is-selected");
+            contextMenu.selected = false
         }
+
         contextMenu.classList.add("is-hidden");
-        contextMenu.dataset.id = "";
     }, false)
 
     for (const button of document.getElementsByClassName("ctx-menu-button")) {
@@ -231,6 +210,50 @@ async function removeItemModalOpen() {
     getObjectFromId('items', id).then((data) => {
         document.getElementById('remove-item-warning-text').innerHTML = `Do you want to remove ${data[0].name}?`;
     })
+}
+
+async function checkoutItemModalOpen() {
+    let dropdown = document.getElementById("checkout-item-dropdown")
+    let dropdownFeild = document.getElementById("checkout-item-dropdown-feild")
+
+    document.getElementById("checkout-item-button").disabled = true
+    dropdownFeild.classList.remove("is-active")
+    document.getElementById('checkout-item-modal').classList.toggle('is-active')
+
+    _supabase
+        .from('projects')
+        .select('name, id').then(({error: projectError, data: projectData}) => {
+            if (projectError) {
+                console.error("Error when fetching project entries", projectError)
+                document.getElementById('checkout-item-modal').classList.toggle('is-active')
+                return
+            }
+
+            while (dropdown.children.length) {
+                dropdown.removeChild(dropdown.firstChild)
+            }
+
+            for (const item of projectData) {
+                let option = document.createElement("option")
+                option.id = item.id
+                option.innerHTML = item.name
+                dropdown.appendChild(option)
+            }
+            
+            dropdownFeild.classList.add("is-active")
+            document.getElementById("checkout-item-button").disabled = false
+        })
+}
+
+async function checkoutItem() {
+    let id = document.getElementById('context-menu').dataset.id;
+    document.getElementById('checkout-item-modal').classList.toggle('is-active')
+
+    await _supabase
+        .from('items')
+        .update({"checkedProject": document.getElementById("checkout-item-dropdown").children[document.getElementById("checkout-item-dropdown").selectedIndex].id})
+        .eq("id", id)
+        .then(updateTableFromServer)
 }
 
 async function removeItem() {

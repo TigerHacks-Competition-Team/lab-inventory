@@ -112,14 +112,15 @@ async function addProjectFormUpdateDropLists() {
 }
 
 function selectProject(projectName) {
-    document.getElementById(selectedProject).className = "project-tab";
-    selectedProject = projectName;
-    document.getElementById(selectedProject).className = "project-tab is-active";
+    document.getElementById(selectedProjectID).classList.toggle("is-active");
+    selectedProjectID = projectName;
+    document.getElementById(selectedProjectID).classList.toggle("is-active");
+    updateTableFromServer()
 }
 
 // Gets items from database and puts them into table
 async function updateTableFromServer() {
-    //Loading animation
+    // Loading animation
     let loading = document.getElementById('loading');
     loading.classList.toggle('is-active');
     document.getElementById('inventory-list').style = "display: none";
@@ -127,21 +128,21 @@ async function updateTableFromServer() {
     // Get table items from database
     const {error: tableError, data: tableData} = await _supabase
         .from('items')
-        .select('name, totalQuantity, image, checkouts, locations ( storageName, storageType, locationInLab ), itemTypes ( name )')
+        .select('name, totalQuantity, image, checkedProject, id, locations ( storageName, storageType, locationInLab ), itemTypes ( name )')
     
     // Get project items from database
     const {error: projectError, data: projectData} = await _supabase
         .from('projects')
-        .select('name')
+        .select('name, id')
 
     // Check table for errors
     if (tableError) {
-        console.error(`Error when fetching table entries, "${tableError}"`)
+        console.error("Error when fetching table entries", tableError)
         return
     }
     // Check projects for errors
     if (projectError) {
-        console.error(`Error when fetching project entries, "${projectError}"`)
+        console.error("Error when fetching project entries", projectError)
         return
     }
     
@@ -174,12 +175,77 @@ async function updateTableFromServer() {
         entry.remove();
     }
 
-    // If no errors are present, loop through each item
-    for (const item of tableData) {
+    // Checks to see if the selected project still exists in the server
+    let foundSelected = false;
+
+    // Add each project from the server to the document
+    for (const item of projectData) {
+        // Format: <li id="project-tab"><a>Project Name</a></li>
+
+        // The outside <li> element and the inner <a> element
+        let projectTabListItem = document.createElement("li")
+        let projectTabLinkItem = document.createElement("a")
+
+        // Set link's text to the name
+        projectTabLinkItem.textContent = item.name
+
+        // Put link in list item
+        projectTabListItem.appendChild(projectTabLinkItem)
+
+        // Add the ID and class to the list item
+        projectTabListItem.id = item.id
+        projectTabListItem.className = "project-tab"
+
+        // Check if project is selected and add class
+        if (selectedProjectID == item.id) {
+            foundSelected = true
+            projectTabListItem.classList.toggle("is-active")
+        }
+
+        // Click handler
+        projectTabLinkItem.onclick = () => {
+            selectProject(projectTabListItem.id)
+        }
+
+        // Get the projects tab and insert list item
+        let allItemsTab = document.getElementById("projects")
+        allItemsTab.appendChild(projectTabListItem)
+    }
+
+    // Select "All Items" if the selected one was not found
+    if (foundSelected) {
+        document.getElementById("All Items").className = "project-tab"
+    } else {
+        selectedProjectID = "All Items"
+        document.getElementById("All Items").className = "project-tab is-active"
+    }
+
+    // If no errors are present, loop through each item. Filter items if they're checked out
+    for (const item of tableData.filter(a => (a.checkedProject == selectedProjectID || selectedProjectID == "All Items"))) {
         // create table row and append it to the main table
         let tableRow = document.createElement("tr");
         tableRow.className = "inventory-list-row";
-        tableRow.dataset.id = item.id;
+        tableRow.id = item.id;
+
+        // Context menu logic
+        tableRow.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+
+            let contextMenu = document.getElementById("context-menu");
+
+            // remove selection on old row
+            if (contextMenu.selected) {
+                document.getElementById(contextMenu.dataset.id).classList.remove("is-selected");
+            }
+
+            event.target.parentElement.classList.add("is-selected");
+            contextMenu.selected = true;
+
+            contextMenu.dataset.id = tableRow.id;
+            contextMenu.classList.remove("is-hidden");
+            contextMenu.style.left = event.pageX + "px";
+            contextMenu.style.top = event.pageY + "px";
+        }, false)
         
         // create the table data elements
         let name = document.createElement("td"),
@@ -233,50 +299,6 @@ async function updateTableFromServer() {
         }
 
         tableRow.onclick = () => showViewItem(item)
-    }
-
-    // Checks to see if the selected project still exists in the server
-    let foundSelected = false;
-
-    // Add each project from the server to the document
-    for (const item of projectData) {
-        // Format: <li id="project-tab"><a>Project Name</a></li>
-
-        // The outside <li> element and the inner <a> element
-        let projectTabListItem = document.createElement("li")
-        let projectTabLinkItem = document.createElement("a")
-
-        // Set link's text to the name
-        projectTabLinkItem.textContent = item.name
-
-        // Put link in list item
-        projectTabListItem.appendChild(projectTabLinkItem)
-
-        // Add the ID and class to the list item
-        projectTabListItem.id = item.name
-        projectTabListItem.className = "project-tab"
-
-        // Check if project is selected and add class
-        if (selectedProject == item.name) {
-            foundSelected = true
-            projectTabListItem.class += " is-active"
-        }
-
-        // Click handler
-        projectTabLinkItem.onclick = () => {
-            selectProject(projectTabListItem.id)
-        }
-
-        // Get the projects tab and insert list item
-        let allItemsTab = document.getElementById("projects")
-        allItemsTab.appendChild(projectTabListItem)
-    }
-
-    // Select "All Items" if the selected one was not found
-    if (foundSelected) {
-        document.getElementById("All Items").removeAttribute("class")
-    } else {
-        document.getElementById("All Items").className = "is-active"
     }
 
     loading.classList.toggle('is-active');
