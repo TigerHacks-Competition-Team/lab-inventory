@@ -65,22 +65,8 @@
     }
 
     &#theme-button {
-        position: absolute;
-        right: 0;
-
         border: none;
         border-left: 1px solid $border;
-
-        // for some reason, just setting the background color covers up the border
-        // on the bottom, so just moving the entire background up by 1px and moving
-        // the icon 'up by -1px' / down by 1px fixes it
-        &:hover {
-            margin-bottom: 1px;
-
-            .icon {
-                margin-bottom: -1px;
-            }
-        }
     }
 }
 
