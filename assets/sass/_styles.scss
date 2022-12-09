@@ -221,3 +221,13 @@ th[data-sorted="true"] {
 .item-type {
     @include mobile { display: none;}
 }
+
+.item-image {
+    @include mobile {
+        width: 64px;
+        height: 64px;
+    }
+
+    width: 128px;
+    height: 128px;
+}

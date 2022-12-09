@@ -176,9 +176,6 @@ async function updateTableFromServer() {
             }
         })
 
-
-        _image.width = 128;
-        _image.height = 128;
         image.appendChild(_image);
 
         // add server data to table data elements
