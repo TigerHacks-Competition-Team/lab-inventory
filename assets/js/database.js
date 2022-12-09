@@ -128,12 +128,17 @@ async function updateTableFromServer() {
     // Get table items from database
     const {error: tableError, data: tableData} = await _supabase
         .from('items')
-        .select('name, totalQuantity, image, checkedProject, id, locations ( storageName, storageType, locationInLab ), itemTypes ( name )')
+        .select('name, totalQuantity, image, id, locations ( storageName, storageType, locationInLab ), itemTypes ( name )')
     
     // Get project items from database
     const {error: projectError, data: projectData} = await _supabase
         .from('projects')
         .select('name, id')
+
+    // Get checkout items from database
+    const {error: checkoutError, data: checkoutData} = await _supabase
+        .from('checkouts')
+        .select()
 
     // Check table for errors
     if (tableError) {
@@ -145,6 +150,13 @@ async function updateTableFromServer() {
         console.error("Error when fetching project entries", projectError)
         return
     }
+    // Check checkouts for errors
+    if (checkoutError) {
+        console.error("Error when fetching checkout entries", checkoutError)
+        return
+    }
+
+    console.log(checkoutData)
     
     // Get table element and length of children for removing elements
     let table = document.getElementById("inventory-data"),
@@ -221,7 +233,7 @@ async function updateTableFromServer() {
     }
 
     // If no errors are present, loop through each item. Filter items if they're checked out
-    for (const item of tableData.filter(a => (a.checkedProject == selectedProjectID || selectedProjectID == "All Items"))) {
+    for (const item of tableData.filter(a => (checkoutData.filter(b => a.id == b.item && b.project == selectedProjectID).length > 0 || selectedProjectID == "All Items"))) {
         // create table row and append it to the main table
         let tableRow = document.createElement("tr");
         tableRow.className = "inventory-list-row";
@@ -236,6 +248,12 @@ async function updateTableFromServer() {
             // remove selection on old row
             if (contextMenu.selected) {
                 document.getElementById(contextMenu.dataset.id).classList.remove("is-selected");
+            }
+
+            if (selectedProjectID != "All Items") {
+                document.getElementById("checkout-ctx-menu-button").classList.add("is-hidden");
+            } else {
+                document.getElementById("checkout-ctx-menu-button").classList.remove("is-hidden");
             }
 
             event.target.parentElement.classList.add("is-selected");
@@ -274,7 +292,11 @@ async function updateTableFromServer() {
 
         // add server data to table data elements
         name.innerHTML = item.name;
-        quantity.innerHTML = item.totalQuantity;
+        if (selectedProjectID == "All Items") {
+            quantity.innerHTML = checkoutData.filter(a => a.item == item.id).reduce((a,b) => a-b.quantity, parseInt(item.totalQuantity))
+        } else {
+            quantity.innerHTML = checkoutData.filter(a => a.item == item.id && a.project == selectedProjectID)[0].quantity
+        }
 
         // append table data to table row
         tableRow.appendChild(image);

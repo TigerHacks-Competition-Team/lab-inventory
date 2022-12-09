@@ -246,14 +246,31 @@ async function checkoutItemModalOpen() {
 }
 
 async function checkoutItem() {
+    // clear old invalidation (if any)
+    clearInvalidation(document.getElementById("checkout-item-quantity"));
+
+    let invalid = false;
+
+    // empty input validation
+    if (!document.getElementById("checkout-item-quantity").value || isNaN(document.getElementById("checkout-item-quantity").value)) {
+        invalidateInput(document.getElementById("checkout-item-quantity"), "You need to enter a number!");
+        invalid = true;
+    }
+
+    if (invalid) { return; }
+
     let id = document.getElementById('context-menu').dataset.id;
     document.getElementById('checkout-item-modal').classList.toggle('is-active')
 
     await _supabase
-        .from('items')
-        .update({"checkedProject": document.getElementById("checkout-item-dropdown").children[document.getElementById("checkout-item-dropdown").selectedIndex].id})
-        .eq("id", id)
-        .then(updateTableFromServer)
+        .from('checkouts')
+        .insert(
+            {
+                item: id,
+                quantity: parseInt(document.getElementById("checkout-item-quantity").value),
+                project: document.getElementById("checkout-item-dropdown").children[document.getElementById("checkout-item-dropdown").selectedIndex].id
+            }
+        )
 }
 
 async function removeItem() {

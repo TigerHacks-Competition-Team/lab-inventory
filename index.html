@@ -32,7 +32,7 @@
     <div id="context-menu" class="dropdown-menu is-hidden">
       <div class="dropdown-content">
         <a class="dropdown-item ctx-menu-button">View</a>
-        <a class="dropdown-item ctx-menu-button" onclick="checkoutItemModalOpen()">Checkout</a>
+        <a class="dropdown-item ctx-menu-button" onclick="checkoutItemModalOpen()" id="checkout-ctx-menu-button">Checkout</a>
         <a class="dropdown-item ctx-menu-button" onclick="removeItemModalOpen()">Remove</a>
       </div>
     </div>
@@ -211,6 +211,13 @@
                 <div class="select">
                   <select id="checkout-item-dropdown"></select>
                 </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Item Quantity</label>
+              <div class="control">
+                <input type="number" class="input" id="checkout-item-quantity" placeholder="Quantity...">
               </div>
             </div>
 
