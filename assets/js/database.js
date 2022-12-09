@@ -71,7 +71,7 @@ async function addItemFormUpdateDropLists() {
     for (const item of data){
         let option = document.createElement("option");
         option.value = item.id;
-        option.innerHTML = item.locationInLab;
+        option.innerText = item.locationInLab;
         locationList.appendChild(option);
     }
 
@@ -87,7 +87,7 @@ async function addItemFormUpdateDropLists() {
     for (const item of data){
         let option = document.createElement("option");
         option.value = item.id;
-        option.innerHTML = item.name;
+        option.innerText = item.name;
         itemTypeList.appendChild(option);
     }
 
@@ -162,8 +162,10 @@ async function updateTableFromServer() {
             _image = document.createElement('img');
 
         
-        location.innerHTML = item.locations.locationInLab;
-        type.innerHTML = item.itemTypes.name;
+        location.className = "item-location";
+        location.innerText = item.locations.locationInLab;
+        type.className = "item-type";
+        type.innerText = item.itemTypes.name;
 
         await downloadImage(item.image).then((data) => {
             let reader = new FileReader();
@@ -179,8 +181,10 @@ async function updateTableFromServer() {
         image.appendChild(_image);
 
         // add server data to table data elements
-        name.innerHTML = item.name;
-        quantity.innerHTML = item.totalQuantity;
+        name.className = "item-name";
+        name.innerText = item.name;
+        quantity.className = "item-quantity";
+        quantity.innerText = item.totalQuantity;
 
         // append table data to table row
         tableRow.appendChild(image);
