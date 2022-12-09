@@ -213,3 +213,11 @@ th[data-sorted="true"] {
 
     }
 }
+
+// prevent rendering on mobile
+#list-location,
+.item-location,
+#list-type,
+.item-type {
+    @include mobile { display: none;}
+}
