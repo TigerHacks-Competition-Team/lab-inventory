@@ -121,7 +121,7 @@ async function updateTableFromServer() {
     // Get items from database
     const {error, data} = await _supabase
         .from('items')
-        .select('name, totalQuantity, image, checkouts, locations ( storageName, storageType, locationInLab ), itemTypes ( name )')
+        .select('name, totalQuantity, image, locations ( storageName, storageType, locationInLab ), itemTypes ( name )')
     console.log(JSON.stringify(data[0]))
     // Check for errors
     if (error) {
