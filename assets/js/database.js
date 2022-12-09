@@ -161,7 +161,7 @@ async function updateTableFromServer() {
             image = document.createElement('td'),
             _image = document.createElement('img');
 
-        
+        image.className = "item-image";
         location.className = "item-location";
         location.innerText = item.locations.locationInLab;
         type.className = "item-type";
@@ -175,6 +175,7 @@ async function updateTableFromServer() {
                 item.imageData = reader.result
             }
         })
+
 
         _image.width = 128;
         _image.height = 128;
