@@ -155,8 +155,6 @@ async function updateTableFromServer() {
         console.error("Error when fetching checkout entries", checkoutError)
         return
     }
-
-    console.log(checkoutData)
     
     // Get table element and length of children for removing elements
     let table = document.getElementById("inventory-data"),
