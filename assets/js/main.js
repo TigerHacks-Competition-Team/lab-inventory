@@ -247,3 +247,7 @@ async function showViewItem(item) {
     document.getElementById("view-item-location").innerHTML = `Location: <strong>${item.locations.storageType}</strong> called <strong>${item.locations.storageName}</strong> in <strong>${item.locations.locationInLab}</strong>`
     document.getElementById("view-item-quantity").innerHTML = `<strong>${item.totalQuantity}</strong>/${item.totalQuantity} available, <strong>${item.totalQuantity}</strong> in use`
 }
+
+function addOverlay() {
+    document.getElementById("add-filter-modal").classList.toggle("is-active");
+}
