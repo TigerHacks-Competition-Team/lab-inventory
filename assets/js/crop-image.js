@@ -1,56 +1,62 @@
 var isMouseDown = false;
-var cropMenuImage = null;
-var croppedImageSize = 512;
+var cropSrcImg = null;
+var cropMaxSize = 512;
 
 function cropMenuDrawCanvas(scale, translateX, translateY) {
     const canvas = document.getElementById('crop-image-preview'),
-          ctx = canvas.getContext('2d'),
-          img = window.cropMenuImage;
+          ctx = canvas.getContext('2d');
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
+    canvas.width = cropSrcImg.naturalWidth;
+    canvas.height = cropSrcImg.naturalHeight;
 
     ctx.save();
     
     // Zoom in on the center of the canvas
     ctx.scale(scale, scale);
-    translateX += (canvas.width / scale - img.width) / 2;
-    translateY += (canvas.height / scale - img.height) / 2;
-    ctx.drawImage(img, translateX, translateY);
+    translateX += (canvas.width / scale - cropSrcImg.width) / 2;
+    translateY += (canvas.height / scale - cropSrcImg.height) / 2;
+    ctx.drawImage(cropSrcImg, translateX, translateY);
 
     ctx.restore();
 
     // Drawing borders
     ctx.globalAlpha = 0.5;
-    const croppedImageSize = window.croppedImageSize;
-    ctx.fillRect(0, 0, canvas.width, (canvas.height / 2) - croppedImageSize / 2);                      // Top border
-    ctx.fillRect(0, (canvas.height / 2) + croppedImageSize / 2,                                        // Bottom border
-                 canvas.width, (canvas.height / 2) - croppedImageSize / 2);                            
-    ctx.fillRect(0, (canvas.height / 2) - (croppedImageSize / 2),                                      // Left border
-                 (canvas.width - croppedImageSize) / 2, croppedImageSize);                             
-    ctx.fillRect((canvas.width / 2) + (croppedImageSize / 2),                                          // Right border
-                 (canvas.height / 2) - (croppedImageSize / 2), 
-                 (canvas.width - croppedImageSize) / 2, croppedImageSize);                             
+    ctx.fillRect(0, 0, canvas.width, (canvas.height / 2) - cropMaxSize / 2);       // Top border
+    ctx.fillRect(0, (canvas.height / 2) + cropMaxSize / 2,                         // Bottom border
+                 canvas.width, (canvas.height / 2) - cropMaxSize / 2);                            
+    ctx.fillRect(0, (canvas.height / 2) - (cropMaxSize / 2),                       // Left border
+                 (canvas.width - cropMaxSize) / 2, cropMaxSize);                             
+    ctx.fillRect((canvas.width / 2) + (cropMaxSize / 2),                           // Right border
+                 (canvas.height / 2) - (cropMaxSize / 2), 
+                 (canvas.width - cropMaxSize) / 2, cropMaxSize);                             
 }
 
 function cropMenuCropImage() {
     const canvas = document.getElementById('crop-image-preview'),
-          ctx = canvas.getContext('2d'),
-          croppedImageSize = window.croppedImageSize; 
+          ctx = canvas.getContext('2d');
 
-    let imageData = ctx.getImageData((canvas.width - croppedImageSize) / 2, (canvas.height / 2) - (croppedImageSize / 2), 
-                                     (canvas.width - croppedImageSize) / 2 + croppedImageSize, 
-                                     (canvas.height / 2) + croppedImageSize / 2);
+    // Get part of the image in the cropped region
+    let imageData = ctx.getImageData((canvas.width - cropMaxSize) / 2, (canvas.height / 2) - (cropMaxSize / 2), 
+                                     (canvas.width - cropMaxSize) / 2 + cropMaxSize, 
+                                     (canvas.height / 2) + cropMaxSize / 2);
+
     let buffer = document.createElement('canvas'),
         bufferCtx = buffer.getContext('2d');
-    buffer.width = 512;
-    buffer.height = 512;
+    buffer.width = cropMaxSize;
+    buffer.height = cropMaxSize;
     bufferCtx.putImageData(imageData, 0, 0);
+
+    // Downscale to 256x256
+    let resized = document.createElement('canvas'),
+        resizedCtx = resized.getContext('2d');
+    resized.width = 256;
+    resized.height = 256;
+    resizedCtx.drawImage(buffer, 0, 0, buffer.width, buffer.height, 0, 0, resized.width, resized.height);
     
     // Create a new image file based on the cropped region
-    buffer.toBlob((blob) => {
+    resized.toBlob((blob) => {
         let file = new File([blob], "cropped.png", {type:"image/png", lastModified:new Date().getTime()});
         let container = new DataTransfer();
         container.items.add(file);
@@ -63,45 +69,49 @@ function cropMenuCropImage() {
 
 function openCropMenu() {
     document.getElementById('crop-image-modal').classList.toggle('is-active');
+    document.getElementById('crop-image-scale-slider').value = 1;
     const currentImageInForm = document.getElementById('add-item-form-image').files[0],
-          canvas = document.getElementById('crop-image-preview');
+          cdata = document.getElementById('crop-image-preview').dataset;
 
-    window.cropMenuImage = new Image();
-    window.cropMenuImage.src = window.URL.createObjectURL(currentImageInForm);
-    window.cropMenuImage.onload = () => {
-        canvas.dataset.translateX = "0";
-        canvas.dataset.translateY = "0";
-        canvas.dataset.dragOffsetX = "0";
-        canvas.dataset.dragOffsetY = "0";
+    cropSrcImg = new Image();
+    cropSrcImg.src = window.URL.createObjectURL(currentImageInForm);
+    cropSrcImg.onload = () => {
+        img = cropSrcImg;   
+        cdata.translateX = "0";
+        cdata.translateY = "0";
+        cdata.dragOffsetX = "0";
+        cdata.dragOffsetY = "0";
+
+        cropMaxSize = (img.naturalWidth > img.naturalHeight) ? img.naturalHeight : img.naturalWidth;
 
         cropMenuDrawCanvas(1, 0, 0);
     }
 }
 
 function cropMenuSetScale(t) {
-    const slider = document.getElementById("crop-image-scale-slider"),
-          canvas = document.getElementById('crop-image-preview');
+    const slider = document.getElementById('crop-image-scale-slider'),
+          cdata = document.getElementById('crop-image-preview').dataset;
     slider.value = parseFloat(slider.value) + t;
-    cropMenuDrawCanvas(parseFloat(slider.value), parseFloat(canvas.dataset.translateX), parseFloat(canvas.dataset.translateY));
+    cropMenuDrawCanvas(parseFloat(slider.value), parseFloat(cdata.translateX), parseFloat(cdata.translateY));
 }
 
 // Dragging logic
 document.getElementById('crop-image-preview').addEventListener("mousedown", (e) => {
-    const canvas = document.getElementById('crop-image-preview');
+    const cdata = document.getElementById('crop-image-preview').dataset;
     window.isMouseDown = true;
-    canvas.dataset.dragOffsetX = e.clientX - parseFloat(canvas.dataset.translateX);
-    canvas.dataset.dragOffsetY = e.clientY - parseFloat(canvas.dataset.translateY);
+    cdata.dragOffsetX = e.clientX - parseFloat(cdata.translateX);
+    cdata.dragOffsetY = e.clientY - parseFloat(cdata.translateY);
 
 });
 document.getElementById('crop-image-preview').addEventListener("mouseup", () => { window.isMouseDown = false; });
 document.getElementById('crop-image-preview').addEventListener("mouseover", () => { window.isMouseDown = false; });
 document.getElementById('crop-image-preview').addEventListener("mouseout", () => { window.isMouseDown = false; });
 document.getElementById('crop-image-preview').addEventListener("mousemove", (e) => {
-    const canvas = document.getElementById('crop-image-preview'),
+    const cdata = document.getElementById('crop-image-preview').dataset,
           slider = document.getElementById("crop-image-scale-slider");
     if (window.isMouseDown) {
-        canvas.dataset.translateX = e.clientX - parseFloat(canvas.dataset.dragOffsetX);
-        canvas.dataset.translateY = e.clientY - parseFloat(canvas.dataset.dragOffsetY);
-        cropMenuDrawCanvas(parseFloat(slider.value), parseFloat(canvas.dataset.translateX), parseFloat(canvas.dataset.translateY));
+        cdata.translateX = e.clientX - parseFloat(cdata.dragOffsetX);
+        cdata.translateY = e.clientY - parseFloat(cdata.dragOffsetY);
+        cropMenuDrawCanvas(parseFloat(slider.value), parseFloat(cdata.translateX), parseFloat(cdata.translateY));
     }
 });
