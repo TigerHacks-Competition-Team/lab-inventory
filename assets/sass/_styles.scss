@@ -165,7 +165,8 @@ th[data-sorted="true"] {
 .col {
     flex-direction: column;
 }
-// old firefox style tabs
+
+// TABS
 .tabs {
 
     border-bottom: 1px solid $border;
@@ -179,34 +180,76 @@ th[data-sorted="true"] {
         border-bottom: none;
 
         // remove background-color hover transition
-        transition: color 0.2s;
+        transition: color 0.2s, background-color 0.1s;
 
         &:hover {
             background-color: $background;
         }
     }
 
-    // active tabs
-    li.is-active {
+
+    li {
         position: relative;
 
-        // line on top, using a pseudo-element so that it doesn't push the text
-        // down
-        ::after {
+        // animation variables
+        $tab-transition-in: 0.125s;
+        $tab-transition-out: 0.15s;
+
+        // line on top, using a pseudio-element so that it a) doesn't push the
+        // text down, and b) can have an animation on hover
+        &::after {
             content: "";
             position: absolute;
             top: 0;
-            left: 0;
-            width: 100%;
             height: 4px;
-            background-color: $primary;
+            background-color: $border;
+            
+            
+            /*
+            the effect of this animation is that on hover over, the line just
+            expands from the center with a slight opacity change
+            on hover end, you only see the opacity change because the width and
+            left change is delayed until the opacity is at 0
+            */
+            width: 0%;
+            opacity: 0;
+            left: 50%;
+            
+            // this animation plays only on mouse out / hover end, because it's
+            // overridden by the transition property in :hover::after
+            transition-property: opacity, width, left;
+            transition-duration: $tab-transition-out; // fade out for n seconds
+            transition-delay: 0s, $tab-transition-out, $tab-transition-out; // width & left transition delayed n seconds
+            transition-timing-function: ease-out;
+            
         }
 
-        a {
-            color: $primary;
+
+        &:hover::after {
+            width: 100%;
+            opacity: 1;
+            left: 0;
+            // this animation only plays on mouse over / hover start
+            transition-property: opacity, width, left;
+            transition-duration: $tab-transition-in; // fade in and expand for n seconds
+            transition-delay: 0s;
+            transition-timing-function: ease-in-out;
         }
 
+        &.is-active {
+            &::after {
+                width: 100%;
+                opacity: 1;
+                left: 0;
+                background-color: $primary;
+            }
+
+            a {
+                color: $primary;
+            }
+        }
     }
+
 }
 
 
