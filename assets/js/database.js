@@ -115,8 +115,7 @@ async function addProjectFormUpdateDropLists() {
 async function updateTableFromServer() {
     //Loading animation
     let loading = document.getElementById('loading');
-    loading.classList.toggle('is-active');
-    document.getElementById('inventory-list').style = "display: none";
+    loading.classList.remove('is-hidden');
 
     // Get items from database
     const {error, data} = await _supabase
@@ -208,6 +207,6 @@ async function updateTableFromServer() {
         
     }
 
-    loading.classList.toggle('is-active');
-    document.getElementById('inventory-list').style = "display: visible;";
+    // hide loading animation
+    loading.classList.add('is-hidden');
 }

@@ -201,11 +201,7 @@
           </div>
         </div>
       </div>
-
-      <div id="loading" class="modal">
-        <img src="assets/img/loading.gif" style="width: 256px; height: 256px">
-        <h2 class="title" id="loading-text"> Loading... </h2>
-      </div>
+      
       
       <table class="table is-bordered is-striped is-hoverable is-fullwidth" id="inventory-list" data-sortable>
         
@@ -243,7 +239,16 @@
           </th>
         </thead>
   
-        <tbody id="inventory-data"></tbody>
+        <tbody id="inventory-data">
+          <tr>
+            <td colspan="1000">
+              <div id="loading">
+                <img src="assets/img/loading.gif" style="width: 256px; height: 256px" class="is-unselectable">
+                <h2 class="title" id="loading-text"> Loading...</h2>
+              </div>
+            </td>
+          </tr>
+        </tbody>
   
       </table>
 
