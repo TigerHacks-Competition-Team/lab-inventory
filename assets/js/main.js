@@ -9,6 +9,18 @@ document.getElementById("add-project-form").addEventListener("submit", (e) => { 
 // new files: add-item-menu.js, crop-image.js, project-menu.js
 // main.js is getting too long
 
+// event listeners to switch tabs
+const tabList = document.querySelector("#tab-bar ul");
+tabList.querySelectorAll("#tab-bar li").forEach(elem => {
+    elem.addEventListener("click", e => {
+        tabList.querySelectorAll("li").forEach(tab => {
+            tab.classList.remove("is-active");
+        })
+
+        e.currentTarget.classList.add("is-active")
+    })
+});
+
 window.onload = async () => {
     // Fetch server data on page load
     await updateTableFromServer()
@@ -68,4 +80,13 @@ async function removeItem() {
     await removeItemFromDatabase(document.getElementById('remove-item-warning-modal').dataset.id);
     await updateTableFromServer();
     document.getElementById('remove-item-warning-modal').dataset.id = "";
+}
+
+async function showViewItem(item) {
+    document.getElementById("view-item-modal").classList.toggle("is-active");
+    document.getElementById("view-item-title").innerText = item.name
+    document.getElementById("view-item-img").src = item.imageData;
+    document.getElementById("view-item-type").innerText = `Type: ${item.itemTypes.name}`
+    document.getElementById("view-item-location").innerHTML = `Location: <strong>${item.locations.storageType}</strong> called <strong>${item.locations.storageName}</strong> in <strong>${item.locations.locationInLab}</strong>`
+    document.getElementById("view-item-quantity").innerHTML = `<strong>${item.totalQuantity}</strong>/${item.totalQuantity} available, <strong>${item.totalQuantity}</strong> in use`
 }

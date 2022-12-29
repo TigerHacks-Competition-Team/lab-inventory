@@ -24,7 +24,7 @@ $blue: #3498db;
 $purple: #8e44ad;
 $red: #e74c3c;
 $white-ter: #ecf0f1;
-$primary: #485fc7;
+$primary: $turquoise;
 $yellow-invert: #fff;
 
 $subtitle-color: $grey-dark;
@@ -50,7 +50,7 @@ $box-color: $text;
 $box-background-color: $grey-dark;
 $box-shadow: none;
 
-$link: $turquoise;
+$link: $blue;
 $link-hover: lighten($link, 5);
 $link-focus: darken($link, 5);
 $link-active: darken($link, 5);

@@ -45,20 +45,26 @@
     transition: background-color 0.2s, color 0.2s;
 }
 
-body {
+#main {
     // offset everything slightly
-    margin: 1rem;
+    padding: 0 1rem 1rem 1rem;
 }
 
-// spacing for top buttons
-#top-buttons {
-    margin-bottom: 1em;
+// tab bar buttons
+.tab-button {
+
+    width: 3rem;
+
+    &:hover {
+        background-color: $background;
+    }
+
+    &#theme-button {
+        border: none;
+        border-left: 1px solid $border;
+    }
 }
 
-// top theme button
-#theme-button {
-    float: right;
-}
 
 // context menu
 #context-menu {
@@ -146,4 +152,110 @@ th[data-sorted="true"] {
         }
     }
     
+}
+
+.flex {
+    display: flex;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.col {
+    flex-direction: column;
+}
+
+// TABS
+.tabs {
+
+    border-bottom: 1px solid $border;
+
+    ul {
+        border: none;
+    }
+    
+    a {
+        border-right: 1px solid $border;
+        border-bottom: none;
+
+        // remove background-color hover transition
+        transition: color 0.2s, background-color 0.1s;
+
+        &:hover {
+            background-color: $background;
+        }
+    }
+
+
+    li {
+        position: relative;
+
+        // animation variables
+        $tab-transition-in: 0.125s;
+        $tab-transition-out: 0.15s;
+
+        // line on top, using a pseudio-element so that it a) doesn't push the
+        // text down, and b) can have an animation on hover
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            height: 4px;
+            background-color: $border;
+            
+            
+            /*
+            the effect of this animation is that on hover over, the line just
+            expands from the center with a slight opacity change
+            on hover end, you only see the opacity change because the width and
+            left change is delayed until the opacity is at 0
+            */
+            width: 0%;
+            opacity: 0;
+            left: 50%;
+            
+            // this animation plays only on mouse out / hover end, because it's
+            // overridden by the transition property in :hover::after
+            transition-property: opacity, width, left;
+            transition-duration: $tab-transition-out; // fade out for n seconds
+            transition-delay: 0s, $tab-transition-out, $tab-transition-out; // width & left transition delayed n seconds
+            transition-timing-function: ease-out;
+            
+        }
+
+
+        &:hover::after {
+            width: 100%;
+            opacity: 1;
+            left: 0;
+            // this animation only plays on mouse over / hover start
+            transition-property: opacity, width, left;
+            transition-duration: $tab-transition-in; // fade in and expand for n seconds
+            transition-delay: 0s;
+            transition-timing-function: ease-in-out;
+        }
+
+        &.is-active {
+            &::after {
+                width: 100%;
+                opacity: 1;
+                left: 0;
+                background-color: $primary;
+            }
+
+            a {
+                color: $primary;
+            }
+        }
+    }
+
+}
+
+
+// loading animation
+#loading {
+    width: max-content;
+    margin: 1rem auto;
+    text-align: center;
 }
