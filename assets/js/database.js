@@ -56,44 +56,6 @@ async function addNewItemType(_name) {
         ])
 }
 
-async function addItemFormUpdateDropLists() {
-    var { data, error } = await _supabase
-        .from('locations')
-        .select();
-    const locationList = document.getElementById("add-item-form-location"),
-          itemTypeList = document.getElementById("add-item-form-type");
-
-    let locationLength = locationList.children.length
-    while (locationLength--) {
-        locationList.children[locationLength].remove()
-    }
-
-    for (const item of data){
-        let option = document.createElement("option");
-        option.value = item.id;
-        option.innerHTML = item.locationInLab;
-        locationList.appendChild(option);
-    }
-
-    var { data, err } = await _supabase
-        .from('itemTypes')
-        .select();
-
-    let itemTypeLength = itemTypeList.children.length
-    while (itemTypeLength--) {
-        itemTypeList.children[itemTypeLength].remove()
-    }
-
-    for (const item of data){
-        let option = document.createElement("option");
-        option.value = item.id;
-        option.innerHTML = item.name;
-        itemTypeList.appendChild(option);
-    }
-
-    document.getElementById("add-item-modal").classList.toggle("is-active");
-}
-
 async function getObjectFromId(table, id) {
     const {data, error} = await _supabase
         .from(table)
