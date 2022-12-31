@@ -1,21 +1,19 @@
 function addProjectFormOnSubmit() {
-
+    const nameInput = document.getElementById("add-project-form-name");
     // clear old invalidation (if any)
-    clearInvalidation(document.getElementById("add-project-form-name"));
+    clearInvalidation(nameInput);
 
     let invalid = false;
 
     // empty input validation
-    if (!document.getElementById("add-project-form-name").value) {
-        invalidateInput(document.getElementById("add-project-form-name"), "You need to enter a project name!");
+    if (!nameInput.value) {
+        invalidateInput(nameInput, "You need to enter a project name!");
         invalid = true;
     }
 
     if (invalid) { return; }
 
-    addNewProject(
-        document.getElementById("add-project-form-name").value,
-    );
+    addNewProject( nameInput.value );
 
     document.getElementById("add-project-modal").classList.remove("is-active")
 }

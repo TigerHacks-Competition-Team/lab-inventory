@@ -23,16 +23,17 @@ function invalidateInput(input, warningText) {
 
 // remove invalidation
 function clearInvalidation(input) {
+    const inputParent = input.parentElement;
 
     input.classList.remove("is-danger");
     if (input.type == "file") {
-        input.parentElement.parentElement.classList.remove("is-danger");
+        inputParent.parentElement.classList.remove("is-danger");
     }
 
-    let warningText = input.parentElement.parentElement.querySelector(".help.is-danger");
+    let warningText = inputParent.parentElement.querySelector(".help.is-danger")
     if (warningText) { warningText.remove(); }
 
-    let icon = input.parentElement.querySelector(".icon.is-small.is-right");
+    let icon = inputParent.querySelector(".icon.is-small.is-right");
     if (icon) { icon.remove(); }
 
 }

@@ -1,6 +1,6 @@
-async function addNewItemToDatabase(_name, _image, _quantity, _location, _type) {
-    let fileExtension = _image.type.split("/")[1];
-    return uploadImage(_image, _name, fileExtension).then(() => 
+async function addNewItemToDatabase(_name, _img, _quantity, _location, _type) {
+    let fileExtension = _img.type.split("/")[1];
+    return uploadImage(_img, _name, fileExtension).then(() => 
         _supabase
         .from('items')
         .insert([
@@ -15,8 +15,9 @@ async function addNewItemToDatabase(_name, _image, _quantity, _location, _type) 
     ).catch((err) => console.warn(err))
 }
 
-async function uploadImage(_image, _item_id, _extension) {
-    return _supabase.storage.from("images").upload(`items/${_item_id}.${_extension}`, _image)
+async function uploadImage(_img, _item_id, _extension) {
+    return _supabase.storage.from("images")
+           .upload(`items/${_item_id}.${_extension}`, _img)
 }
 
 async function downloadImage(imagePath) {
@@ -82,7 +83,10 @@ async function updateTableFromServer() {
     // Get items from database
     const {error, data} = await _supabase
         .from('items')
-        .select('name, totalQuantity, image, locations ( storageName, storageType, locationInLab ), itemTypes ( name )')
+        .select(`name, totalQuantity, image, 
+                locations ( storageName, storageType, locationInLab ), 
+                itemTypes ( name )`);
+
     console.log(JSON.stringify(data[0]))
     // Check for errors
     if (error) {
@@ -94,13 +98,14 @@ async function updateTableFromServer() {
     let table = document.getElementById("inventory-data"),
         tableIndex = table.children.length;
 
-    // Remove all elements from table, we do it like this instead of a "for of" loop because
-    // removing elements from an array while looping through that array causes it to only remove
-    // half the elements
+    // Remove all elements from table, we do it like this instead of a 
+    // "for of" loop because removing elements from an array while looping 
+    // through that array causes it to only remove half the elements
     while (tableIndex--) {
         let entry = table.children[tableIndex]
 
-        // Dont remove table header, for some reason the table header tag came up as tbody istead of th
+        // Dont remove table header, for some reason the table header tag 
+        // came up as <tbody> instead of <th>
         if (entry.tagName === "THEAD") {continue}
 
         // Remove the table row
@@ -120,7 +125,7 @@ async function updateTableFromServer() {
             location = document.createElement("td"),
             type = document.createElement('td'),
             image = document.createElement('td'),
-            _image = document.createElement('img');
+            _img = document.createElement('img');
 
         
         location.innerHTML = item.locations.locationInLab;
@@ -130,14 +135,14 @@ async function updateTableFromServer() {
             let reader = new FileReader();
             reader.readAsDataURL(data.data);
             reader.onloadend = function() {
-                _image.src = reader.result;
+                _img.src = reader.result;
                 item.imageData = reader.result
             }
         })
 
-        _image.width = 128;
-        _image.height = 128;
-        image.appendChild(_image);
+        _img.width = 128;
+        _img.height = 128;
+        image.appendChild(_img);
 
         // add server data to table data elements
         name.innerHTML = item.name;
