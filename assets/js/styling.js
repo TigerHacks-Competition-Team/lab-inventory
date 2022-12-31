@@ -1,7 +1,7 @@
 
 // dark mode, load before other things so page doesn't flash white
 let theme = window.localStorage.getItem("theme") || 
-    (window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light");
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark":"light")
 setTheme(theme);
 
 function setTheme(theme) {
