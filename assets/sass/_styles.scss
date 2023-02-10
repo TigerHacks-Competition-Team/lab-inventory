@@ -1,4 +1,6 @@
 @charset "utf-8";
+// @use "../../modules/bulma/sass/utilities/_all.sass" as defaults;
+@import "../../modules/bulma/sass/utilities/mixins.sass";
 
 // required for sass compiler to be able to use variables, as well as
 // intellisense, since it's just variables it should be stripped away when
@@ -45,9 +47,9 @@
     transition: background-color 0.2s, color 0.2s;
 }
 
-#main {
+#head {
     // offset everything slightly
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 1rem;
 }
 
 // tab bar buttons
@@ -258,4 +260,11 @@ th[data-sorted="true"] {
     width: max-content;
     margin: 1rem auto;
     text-align: center;
+}
+
+// add some padding to the inventory table
+#table-wrapper {
+    @include tablet {
+        margin: 0 1rem;
+    }
 }

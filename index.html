@@ -216,21 +216,20 @@
       </div>
     </div>
 
-    <div id="main">
 
+    <div id="head" class="block">
       <h2 class="title">All Items</h2>
-  
-      <div class="block">
-      
-        <button class="button is-primary" id="add-item-button" onclick="addItemFormUpdateDropLists()">
-          <span>Add Item</span>
-          <span class="icon is-small">
-            <i class="fas fa-plus"></i>
-          </span>
-        </button>
+        
+      <button class="button is-primary" id="add-item-button" onclick="addItemFormUpdateDropLists()">
+        <span>Add Item</span>
+        <span class="icon is-small">
+          <i class="fas fa-plus"></i>
+        </span>
+      </button>
+    </div>
+    
+    <div id="table-wrapper">
 
-      </div>
-      
       <table class="table is-bordered is-striped is-hoverable is-fullwidth" id="inventory-list" data-sortable>
           
         <thead>
@@ -280,7 +279,6 @@
     
       </table>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="assets/js/database.js" defer></script>
