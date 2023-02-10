@@ -46,114 +46,98 @@
         </div>
     </div>
 
-    <div id="main">
-
-      <h2 class="title">All Items</h2>
-  
-      <div class="block">
-      
-        <button class="button is-primary" id="add-item-button" onclick="addItemFormUpdateDropLists()">
-          <span>Add Item</span>
-          <span class="icon is-small">
-            <i class="fas fa-plus"></i>
-          </span>
-        </button>
-
-      </div>
-      
-      <div class="modal" id="view-item-modal">
-        <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active')"></div>
-        <div class="modal-content">
-          <div class="box">
-            <h2 class="title" id="view-item-title"></h1>
-            <div class="flex row">
-              <div class="modal-content flex col" style="flex: 1">
-                <img id="view-item-img" width="100%" height="100%" style="border-radius: 16px;"/>
-              </div>
-              <div class="modal-content flex col" id="view-item-data" style="flex: 1; margin-left: 16px">
-                <p id="view-item-type"></p>
-                <p id="view-item-location"></p>
-                <p id="view-item-quantity"></p>
-              </div>
+    <div class="modal" id="view-item-modal">
+      <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active')"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="title" id="view-item-title"></h1>
+          <div class="flex row">
+            <div class="modal-content flex col" style="flex: 1">
+              <img id="view-item-img" width="100%" height="100%" style="border-radius: 16px;"/>
+            </div>
+            <div class="modal-content flex col" id="view-item-data" style="flex: 1; margin-left: 16px">
+              <p id="view-item-type"></p>
+              <p id="view-item-location"></p>
+              <p id="view-item-quantity"></p>
             </div>
           </div>
         </div>
       </div>
-  
-      <div class="modal" id="add-item-modal">
-        <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active'); clearAddItemMenu();"></div>
-        <div class="modal-content">
-          <div class="box">
-            <form id="add-item-form" onsubmit="addItemFormOnSubmit()">
-  
-              <h2 class="title">Add Item</h2>
-  
-              <div class="field">
-                <label class="label">Item Name</label>
-                <div class="control">
-                  <input type="text" class="input" id="add-item-form-name" name="add-item-form-name" placeholder="Enter item name..." autocomplete="off">
-                </div>
+    </div>
+
+    <div class="modal" id="add-item-modal">
+      <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active'); clearAddItemMenu();"></div>
+      <div class="modal-content">
+        <div class="box">
+          <form id="add-item-form" onsubmit="addItemFormOnSubmit()">
+
+            <h2 class="title">Add Item</h2>
+
+            <div class="field">
+              <label class="label">Item Name</label>
+              <div class="control">
+                <input type="text" class="input" id="add-item-form-name" name="add-item-form-name" placeholder="Enter item name..." autocomplete="off">
               </div>
-  
-              <div class="field">
-                <label class="label">Quantity</label>
-                <div class="control">
-                  <input type="text" class="input" id="add-item-form-quantity" name="add-item-form-quantity" placeholder="Enter an amount..." autocomplete="off">
-                </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Quantity</label>
+              <div class="control">
+                <input type="text" class="input" id="add-item-form-quantity" name="add-item-form-quantity" placeholder="Enter an amount..." autocomplete="off">
               </div>
-  
-              <div class="field">
-                <label class="label">Image</label>
-                <div class="control">
-                  <div class="file">
-                    <label class="file-label">
-  
-                      <input type="file" class="file-input" id="add-item-form-image" name="add-item-form-image" name="resume" accept="image/*" autocomplete="off">
-  
-                      <span class="file-cta">
-                        <span class="file-icon">
-                          <i class="fas fa-upload"></i>
-                        </span>
-  
-                        <span class="file-label">
-                          Choose an image...
-                        </span>
+            </div>
+
+            <div class="field">
+              <label class="label">Image</label>
+              <div class="control">
+                <div class="file">
+                  <label class="file-label">
+
+                    <input type="file" class="file-input" id="add-item-form-image" name="add-item-form-image" name="resume" accept="image/*" autocomplete="off">
+
+                    <span class="file-cta">
+                      <span class="file-icon">
+                        <i class="fas fa-upload"></i>
                       </span>
-  
-                    </label>
-                    <button class="button is-hidden" id="file-crop-image" type="button" onclick="openCropMenu()">Crop Image</button>
-                  </div>
+
+                      <span class="file-label">
+                        Choose an image...
+                      </span>
+                    </span>
+
+                  </label>
+                  <button class="button is-hidden" id="file-crop-image" type="button" onclick="openCropMenu()">Crop Image</button>
                 </div>
               </div>
-  
-              <div class="field">
-                <label class="label">Location</label>
-                <div class="select">
-                  <select id="add-item-form-location" name="add-item-form-location"></select>
-                </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Location</label>
+              <div class="select">
+                <select id="add-item-form-location" name="add-item-form-location"></select>
               </div>
-  
-              <div class="field">
-                <label class="label">Type</label>
-                <div class="select">
-                  <select id="add-item-form-type" name="add-item-form-type"></select>
-                </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Type</label>
+              <div class="select">
+                <select id="add-item-form-type" name="add-item-form-type"></select>
               </div>
-  
-              <div class="field is-grouped">
-                <div class="control">
-                  <button class="button is-link" type="submit" id="add-item-form-submit">Add Item</button>
-                </div>
-                <div class="control">
-                  <button class="button is-link is-light" type="button" onclick="document.getElementById('add-item-modal').classList.remove('is-active'); clearAddItemMenu();">Cancel</button>
-                </div>
+            </div>
+
+            <div class="field is-grouped">
+              <div class="control">
+                <button class="button is-link" type="submit" id="add-item-form-submit">Add Item</button>
               </div>
-              
-            </form>
-          </div>
+              <div class="control">
+                <button class="button is-link is-light" type="button" onclick="document.getElementById('add-item-modal').classList.remove('is-active'); clearAddItemMenu();">Cancel</button>
+              </div>
+            </div>
+            
+          </form>
         </div>
-        <button class="modal-close is-large" aria-label="close" onclick="this.parentElement.classList.toggle('is-active')"></button>
       </div>
+      <button class="modal-close is-large" aria-label="close" onclick="this.parentElement.classList.toggle('is-active')"></button>
     </div>
 
     <div class="modal" id="crop-image-modal">
@@ -211,14 +195,14 @@
         </div>
       </div>
     </div>
-  
+
     <div class="modal" id="remove-item-warning-modal">
       <div class="modal-background" onclick="this.parentElement.classList.toggle('is-active')"></div>
       <div class="modal-content">
         <div class="box">
           <h2 class="title"> Remove Item </h2>
           <span id="remove-item-warning-text"></span>
-  
+
           <div class="field is-grouped">
             <div class="control">
               <button onclick="removeItem()" id="remove-item-button" class="button is-danger" type="button"> Remove </button><br>
@@ -232,55 +216,70 @@
       </div>
     </div>
 
+    <div id="main">
+
+      <h2 class="title">All Items</h2>
+  
+      <div class="block">
       
-    <table class="table is-bordered is-striped is-hoverable is-fullwidth" id="inventory-list" data-sortable>
-        
-      <thead>
-        <th data-sortable="false">
-           Image
-        </th>
-        <th data-sorted="true" data-sorted-direction="ascending">
-          Item Name
-          <span class="icon sort-icon">
-            <img src="./assets/img/sort_top.svg">
-            <img src="./assets/img/sort_bottom.svg">
+        <button class="button is-primary" id="add-item-button" onclick="addItemFormUpdateDropLists()">
+          <span>Add Item</span>
+          <span class="icon is-small">
+            <i class="fas fa-plus"></i>
           </span>
-        </th>
-        <th data-sortable-type="numeric">
-          Quantity
-          <span class="icon sort-icon">
-            <img src="./assets/img/sort_top.svg">
-            <img src="./assets/img/sort_bottom.svg">
-          </span>
-        </th>
-        <th>
-          Location
-          <span class="icon sort-icon">
-            <img src="./assets/img/sort_top.svg">
-            <img src="./assets/img/sort_bottom.svg">
-          </span>
-        </th>
-        <th>
-          Type
-          <span class="icon sort-icon">
-            <img src="./assets/img/sort_top.svg">
-            <img src="./assets/img/sort_bottom.svg">
-          </span>
-        </th>
-      </thead>
-  
-      <tbody id="inventory-data">
-        <tr>
-          <td colspan="5">
-            <div id="loading">
-              <img src="assets/img/loading.gif" style="width: 256px; height: 256px" class="is-unselectable">
-              <h2 class="title" id="loading-text"> Loading...</h2>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-  
-    </table>
+        </button>
+
+      </div>
+      
+      <table class="table is-bordered is-striped is-hoverable is-fullwidth" id="inventory-list" data-sortable>
+          
+        <thead>
+          <th data-sortable="false">
+            Image
+          </th>
+          <th data-sorted="true" data-sorted-direction="ascending">
+            Item Name
+            <span class="icon sort-icon">
+              <img src="./assets/img/sort_top.svg">
+              <img src="./assets/img/sort_bottom.svg">
+            </span>
+          </th>
+          <th data-sortable-type="numeric">
+            Quantity
+            <span class="icon sort-icon">
+              <img src="./assets/img/sort_top.svg">
+              <img src="./assets/img/sort_bottom.svg">
+            </span>
+          </th>
+          <th>
+            Location
+            <span class="icon sort-icon">
+              <img src="./assets/img/sort_top.svg">
+              <img src="./assets/img/sort_bottom.svg">
+            </span>
+          </th>
+          <th>
+            Type
+            <span class="icon sort-icon">
+              <img src="./assets/img/sort_top.svg">
+              <img src="./assets/img/sort_bottom.svg">
+            </span>
+          </th>
+        </thead>
+    
+        <tbody id="inventory-data">
+          <tr>
+            <td colspan="5">
+              <div id="loading">
+                <img src="assets/img/loading.gif" style="width: 256px; height: 256px" class="is-unselectable">
+                <h2 class="title" id="loading-text"> Loading...</h2>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+    
+      </table>
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
