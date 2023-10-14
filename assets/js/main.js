@@ -2,8 +2,12 @@ const { createClient } = supabase,
       _supabase = createClient('https://apdqcjlnovlnwziquaye.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFwZHFjamxub3Zsbnd6aXF1YXllIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ1Njg5NDAsImV4cCI6MTk4MDE0NDk0MH0.qESxhTdMvDRuGyNhC9C65S3Syq4iSIGMh5KEjTBG6K0');
 
 // Prevent form from submitting when the Enter key is pressed
-document.getElementById("add-item-form").addEventListener("submit", (e) => { e.preventDefault(); });
-document.getElementById("add-project-form").addEventListener("submit", (e) => { e.preventDefault(); });
+document.getElementById("add-item-form").addEventListener("submit", (e) => { 
+    e.preventDefault(); 
+});
+document.getElementById("add-project-form").addEventListener("submit", (e) => { 
+    e.preventDefault(); 
+});
 
 // 12/4/22 - Anh: move different menu code to their respective .js files
 // new files: add-item-menu.js, crop-image.js, project-menu.js
@@ -34,7 +38,9 @@ window.onload = async () => {
 
             // remove selection on old row
             if (contextMenu.selected) {
-                document.getElementById("inventory-data").children[contextMenu.selected - 1].classList.remove("is-selected");
+                document.getElementById("inventory-data")
+                    .children[contextMenu.selected - 1]
+                    .classList.remove("is-selected");
             }
 
             event.target.parentElement.classList.add("is-selected");
@@ -47,46 +53,58 @@ window.onload = async () => {
         }, false)
     };
 
-    window.addEventListener("click", (event) => {
+    window.addEventListener("click", () => {
         let contextMenu = document.getElementById("context-menu");
         
         if (contextMenu.selected) {
-            document.getElementById("inventory-data").children[contextMenu.selected - 1].classList.remove("is-selected");
+            document.getElementById("inventory-data")
+                .children[contextMenu.selected - 1]
+                .classList.remove("is-selected");
         }
         contextMenu.classList.add("is-hidden");
         contextMenu.dataset.id = "";
     }, false)
 
-    for (const button of document.getElementsByClassName("ctx-menu-button")) {
-        button.addEventListener("contextmenu", (event) => {
+    for (const btn of document.getElementsByClassName("ctx-menu-button")) {
+        btn.addEventListener("contextmenu", (event) => {
             event.preventDefault();
         })
     }
 }
 
 async function removeItemModalOpen() {
-    let id = document.getElementById('context-menu').dataset.id;
-    document.getElementById('remove-item-warning-modal').dataset.id = id;
-    document.getElementById('remove-item-warning-modal').classList.toggle('is-active');
-    document.getElementById('remove-item-warning-text').innerHTML = "Loading...";
+    const id = document.getElementById('context-menu').dataset.id,
+          modal = document.getElementById('remove-item-warning-modal'),
+          text = document.getElementById('remove-item-warning-text');
+
+    modal.dataset.id = id;
+    modal.classList.toggle('is-active');
+    text.innerHTML = "Loading...";
     
     getObjectFromId('items', id).then((data) => {
-        document.getElementById('remove-item-warning-text').innerHTML = `Do you want to remove ${data[0].name}?`;
+        text.innerHTML = `Do you want to remove ${data[0].name}?`;
     })
 }
 
 async function removeItem() {
-    document.getElementById('remove-item-warning-modal').classList.toggle('is-active');
-    await removeItemFromDatabase(document.getElementById('remove-item-warning-modal').dataset.id);
+    const warningModal = document.getElementById('remove-item-warning-modal');
+    warningModal.classList.toggle('is-active');
+    await removeItemFromDatabase(warningModal.dataset.id);
     await updateTableFromServer();
-    document.getElementById('remove-item-warning-modal').dataset.id = "";
+    warningModal.dataset.id = "";
 }
 
 async function showViewItem(item) {
     document.getElementById("view-item-modal").classList.toggle("is-active");
     document.getElementById("view-item-title").innerText = item.name
     document.getElementById("view-item-img").src = item.imageData;
-    document.getElementById("view-item-type").innerText = `Type: ${item.itemTypes.name}`
-    document.getElementById("view-item-location").innerHTML = `Location: <strong>${item.locations.storageType}</strong> called <strong>${item.locations.storageName}</strong> in <strong>${item.locations.locationInLab}</strong>`
-    document.getElementById("view-item-quantity").innerHTML = `<strong>${item.totalQuantity}</strong>/${item.totalQuantity} available, <strong>${item.totalQuantity}</strong> in use`
+    document.getElementById("view-item-type").innerText = 
+                                                `Type: ${item.itemTypes.name}`
+    document.getElementById("view-item-location").innerHTML = 
+    `Location: <strong>${item.locations.storageType}</strong> called 
+               <strong>${item.locations.storageName}</strong> in 
+               <strong>${item.locations.locationInLab}</strong>`
+    document.getElementById("view-item-quantity").innerHTML = 
+    `<strong>${item.totalQuantity}</strong>/${item.totalQuantity} available, 
+    <strong>${item.totalQuantity}</strong> in use`
 }
